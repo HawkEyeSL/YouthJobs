@@ -5,13 +5,15 @@ from django.conf.urls import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'youthjob.views.index', name='index'),
-    # url(r'^youthjob/', include('youthjob.foo.urls')),
+     
+    #User auth urls
+    url(r'^login/$', 'youthjob.views.login'),
+   	url(r'^auth/$', 'youthjob.views.auth_view'),
+    url(r'^logout/$', 'youthjob.views.logout'),
+    url(r'^loggedin/$', 'youthjob.views.loggedin'),
+    url(r'^invalid/$', 'youthjob.views.invalid_login'),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    #User registration urls
+    url(r'^register/$', 'youthjob.views.register_user'),
+    url(r'^register_success/$', 'youthjob.views.register_success'),
 )
