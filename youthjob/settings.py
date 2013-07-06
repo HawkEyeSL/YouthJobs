@@ -1,5 +1,7 @@
 # Django settings for youthjob project.
 import os
+import socket
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,13 +14,20 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#lets setup password as ours(pattern: 'your_computer_name':'db_password',).
+password = { 'flame': '1', 'pipo':'1234'}
+if socket.gethostname() in password:
+    password = password[socket.gethostname()]
+else:
+    password = '1234'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'youthjobdb',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': '1234',
+        'PASSWORD': password,
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
