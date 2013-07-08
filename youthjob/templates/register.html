@@ -13,7 +13,7 @@
       }
 
      .form-signin {
-        max-width: 300px;
+        max-width: 620px;
         padding: 19px 29px 29px;
         margin: 20px auto 20px;
         background-color: #87CEFA;
@@ -34,10 +34,31 @@
         font-size: 16px;
         height: auto;
         margin-bottom: 15px;
-        padding: 7px 9px;
+        padding: 7px 0px;
+      }
+
+      input[type="text"], input[type="password"]{
+        width: 100% !important;
       }
 
 </style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("ul").find("li").removeClass("active");
+    $("#register").addClass("active");
+
+    $("#id_type_0").prop("checked", true);
+
+    $("input[name='type']").change(function() {
+      if($("input[name='type']:checked", '.form-signin').val() == "True"){
+        $("label[for='id_full_name']").text("Company Name:");
+      }else{
+        $("label[for='id_full_name']").text("Full Name:");
+      }
+    });
+  });
+</script>
 
 <div class="container">	
 	<form class="form-signin" method="post" action="/register/">

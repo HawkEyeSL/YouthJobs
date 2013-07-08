@@ -67,13 +67,8 @@
           }
 
         </style>
-        <script src="http://code.jquery.com/jquery.js"></script>
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <script type="text/javascript">
-          $("body").click(function() {
-            alert("Handler for .click() called.");
-          });
-        </script>
+
+        <script src="{% static 'js/jquery-1.8.3.js' %}"></script>        
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -87,9 +82,9 @@
           <a href="/" class="brand">YouthJobs.lk</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Register</a></li>
+              <li id="home" class="active"><a href="/">Home</a></li>
+              <li id="login"><a href="/login">Login</a></li>
+              <li id="register"><a href="/register">Register</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

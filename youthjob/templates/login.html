@@ -31,6 +31,13 @@
 
 </style>
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("ul").find("li").removeClass("active");
+    $("#login").addClass("active");
+  });
+</script>
+
 <div class="container">	
 	<form class="form-signin" method="post" action="/auth/">
 	{% csrf_token %}
