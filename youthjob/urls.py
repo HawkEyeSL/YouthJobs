@@ -7,6 +7,7 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
      
     #User auth urls
+    url(r'^$', 'youthjob.views.index'),
     url(r'^login/$', 'youthjob.views.login'),
    	url(r'^auth/$', 'youthjob.views.auth_view'),
     url(r'^logout/$', 'youthjob.views.logout'),
