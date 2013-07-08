@@ -1,0 +1,8 @@
+{% block content %}
+    <ul>
+    {% for item in list %}
+        <li><a href="/polls/{{ item }}/">{{ item }}</a></li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}

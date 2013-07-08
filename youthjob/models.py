@@ -19,11 +19,12 @@ class Users(models.Model):
         return u'%s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.username, self.firstname, self.lastname, 
             self.email, self.phone, self.password, self.gender, self.active, self.verified, self.updated, self.created)
 
+
 class Companies(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
-    city = models.CharField(max_length=200) 
+    city = models.CharField(max_length=200)
     company_reg_no = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     phone1 = models.CharField(max_length=200)
@@ -39,7 +40,7 @@ class Companies(models.Model):
 
     def __unicode__(self):
         return u'%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.name, self.address, self.city, 
-            self.company_reg_no, self.email, self.phone1, self.phone2, self.password, self.district, 
+            self.company_reg_no, self.email, self.phone1, self.phone2, self.password, self.district,
             self.type, self.postal_code, self.active, self.verified, self.updated, self.created)
 
 class User_verifications(models.Model):
