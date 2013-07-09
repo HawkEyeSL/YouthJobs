@@ -79,12 +79,11 @@ STATIC_ROOT = ''
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -103,6 +102,10 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

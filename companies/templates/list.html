@@ -1,8 +1,21 @@
+{% extends "base.html" %}
+
 {% block content %}
-    <ul>
-    {% for item in list %}
-        <li><a href="/polls/{{ item }}/">{{ item }}</a></li>
-    {% endfor %}
-    </ul>
+    <div class="container">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>Company</td>
+                <th>Description</td>
+                <th>Vacancies</td>
+            </tr>
+        {% for item in list %}
+            <tr>
+                <td><a href="/companies/{{ item.name }}/">{{ item.name }}</a></td>
+                <td>{{ item }}</td>
+                <td><a href="/vacancies/{{ item.name }}/">{{ item.id }}</a></td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}
