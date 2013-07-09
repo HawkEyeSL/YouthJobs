@@ -1,21 +1,19 @@
-{% extends "base.html" %}
+{% extends "base_site.html" %}
 
 {% block content %}
-    <div class="container">
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>Company</td>
-                <th>Description</td>
-                <th>Vacancies</td>
-            </tr>
-        {% for item in list %}
-            <tr>
-                <td><a href="/companies/{{ item.name }}/">{{ item.name }}</a></td>
-                <td>{{ item }}</td>
-                <td><a href="/vacancies/{{ item.name }}/">{{ item.id }}</a></td>
-            </tr>
-        {% endfor %}
-        </table>
-    </div>
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>Company</td>
+            <th>Description</td>
+            <th>Vacancies</td>
+        </tr>
+    {% for item in list %}
+        <tr>
+            <td><a href="/companies/{{ item.name }}/">{{ item.name }}</a></td>
+            <td>{{ item }}</td>
+            <td><a href="/vacancies/{{ item.name }}/">{{ item.id }}</a></td>
+        </tr>
+    {% endfor %}
+    </table>
 
 {% endblock %}
