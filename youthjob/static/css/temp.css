@@ -1,0 +1,22 @@
+
+
+
+.table-bordered, .table-bordered tr, .table-bordered th, .table-bordered td {
+    border-color: #79C2DD;
+}
+.table th {
+    background-color: #A7E6FF;
+    color:#005580;
+}
+.table td {
+    color:#6C92A1;
+}
+
+
+.table-hover tbody tr:hover > td, .table-hover tbody tr:hover > th {
+background-color: #C7E5F0;
+}
+.table-hover tbody tr:hover > th {
+background-color: #A7E6FF;
+}
+

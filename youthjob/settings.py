@@ -15,7 +15,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 #lets setup password as ours(pattern: 'your_computer_name':'db_password',).
-password = { 'flame': '1', 'pipo':'1234'}
+password = { 'flame': '1', 'pipo':'1234','hope':'1',}
 if socket.gethostname() in password:
     password = password[socket.gethostname()]
 else:
@@ -79,12 +79,11 @@ STATIC_ROOT = ''
 # Example: "http://example.com/static/", "http://static.example.com/"
 STATIC_URL = '/static/'
 
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 # Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -103,6 +102,10 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
+
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -128,7 +131,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'youthjob'
+    'youthjob',
+    'companies',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

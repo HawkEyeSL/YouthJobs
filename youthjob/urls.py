@@ -18,4 +18,10 @@ urlpatterns = patterns('',
     #User registration urls
     url(r'^register/$', 'youthjob.views.register_user'),
     url(r'^register_success/$', 'youthjob.views.register_success'),
+    
+    #company views
+    url(r'^companies/', include('companies.urls')),
+    
+    
+    
 )

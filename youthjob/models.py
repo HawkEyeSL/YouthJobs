@@ -29,10 +29,12 @@ class Applicants(models.Model):
             self.birth_year, self.birth_month, self.birth_day, self.address, 
             self.phone, self.gender, self.completed, self.updated, self.created)
 
+
 class Companies(models.Model):
     id = models.AutoField(primary_key=True)
     auth_id = models.ForeignKey(User)
     address = models.CharField(max_length=200)
+    city = models.CharField(max_length=200)
     company_reg_no = models.CharField(max_length=200)
     phone1 = models.CharField(max_length=200)
     phone2 = models.CharField(max_length=200)
@@ -70,9 +72,3 @@ class User_password_recover(models.Model):
     def __unicode__(self):
         return u'%s %s %s %s %s %s' % (self.id, self.user_id, self.company_id, self.random_code, self.is_valid, self.updated, self.created)
 
-class Districts(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return u'%s %s' % (self.id, self.name)
