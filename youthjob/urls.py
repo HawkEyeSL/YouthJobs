@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^logout/$', 'youthjob.views.logout'),
     url(r'^loggedin/$', 'youthjob.views.loggedin'),
     url(r'^invalid/$', 'youthjob.views.invalid_login'),
+    url(r'^wall/$', 'youthjob.views.wall'),
 
     #User registration urls
     url(r'^register/$', 'youthjob.views.register_user'),
