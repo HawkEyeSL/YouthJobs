@@ -11,7 +11,7 @@ class CompanyDetailsForm(forms.ModelForm):
 
 	class  Meta:
 		model = Companies
-		fields = ('company_reg_no', 'address', 'phone1', 'phone2', 'district', 'type', 'postal_code',)
+		fields = ('name', 'company_reg_no', 'address', 'phone1', 'phone2', 'district', 'type', 'postal_code',)
 
 class ApplicantDetailsForm(forms.ModelForm):
 	gender = forms.TypedChoiceField(
@@ -31,7 +31,6 @@ class ApplicantDetailsForm(forms.ModelForm):
 
 class UserRegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
-	full_name = forms.CharField(required=True)
 	type = forms.TypedChoiceField(
 		coerce=lambda x: x == 'True', 
 		choices=((False, 'Applicant'), (True, 'Company')), 
@@ -40,13 +39,12 @@ class UserRegistrationForm(UserCreationForm):
 	
 	class Meta:
 		model = User
-		fields = ('type', 'username', 'full_name', 'email','password1', 'password2',)
+		fields = ('type', 'username', 'email','password1', 'password2',)
 
 	def save(self, commit=True):
 		user = super(UserCreationForm, self).save(commit=False)
 		user.set_password(self.cleaned_data["password1"])
 		user.email = self.cleaned_data['email']
-		user.first_name = self.cleaned_data['full_name']
 		user.is_staff = self.cleaned_data['type']
 		
 		if commit:

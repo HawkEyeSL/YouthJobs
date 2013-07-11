@@ -21,14 +21,12 @@ def auth_view(request):
   user = auth.authenticate(username=username, password=password)
 
   if user is not None:
-    request.session['logged_in'] = True
     auth.login(request, user)
     return HttpResponseRedirect('/loggedin')
   else:
     return HttpResponseRedirect('/invalid')
 
 def loggedin(request):
-  if request.session['logged_in'] == True:    
     userObject = User.objects.get(username=request.user.username)
     user_type = userObject.is_staff
     user_foreign_key = userObject.id
@@ -77,9 +75,6 @@ def loggedin(request):
 
       args['username'] = request.user.username
       return render_to_response('loggedin.html', args)
-  else:
-    return HttpResponseRedirect('/login')
-
 
 def invalid_login(request):
   return render_to_response('invalid_login.html')

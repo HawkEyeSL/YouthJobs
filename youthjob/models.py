@@ -32,7 +32,8 @@ class Applicants(models.Model):
 
 class Companies(models.Model):
     id = models.AutoField(primary_key=True)
-    auth_id = models.ForeignKey(User)
+    auth_id = models.ForeignKey(User) 
+    name = models.CharField(max_length=200)
     address = models.CharField(max_length=200)
     company_reg_no = models.CharField(max_length=200)
     phone1 = models.CharField(max_length=200)
@@ -45,7 +46,7 @@ class Companies(models.Model):
     created = models.DateTimeField('date published')
 
     def __unicode__(self):
-        return u'%s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.auth_id, self.address, self.company_reg_no, 
+        return u'%s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.auth_id, self.name, self.address, self.company_reg_no, 
             self.phone1, self.phone2, self.district, self.type, self.postal_code, self.completed, self.updated, self.created)
 
 class User_verifications(models.Model):
