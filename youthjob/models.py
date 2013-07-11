@@ -34,7 +34,6 @@ class Companies(models.Model):
     id = models.AutoField(primary_key=True)
     auth_id = models.ForeignKey(User)
     address = models.CharField(max_length=200)
-    city = models.CharField(max_length=200)
     company_reg_no = models.CharField(max_length=200)
     phone1 = models.CharField(max_length=200)
     phone2 = models.CharField(max_length=200)

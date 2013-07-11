@@ -32,40 +32,51 @@ def loggedin(request):
     userObject = User.objects.get(username=request.user.username)
     user_type = userObject.is_staff
     user_foreign_key = userObject.id
-
-    if request.method == 'POST':      
-      if user_type == 0:
-        form = ApplicantDetailsForm(request.POST)
-        new_applicant = form.save(commit=False)
-        new_applicant.auth_id_id = user_foreign_key
-        new_applicant.birth_year = request.POST.get('birth_date_year', '')
-        new_applicant.birth_month = request.POST.get('birth_date_month', '')
-        new_applicant.birth_day = request.POST.get('birth_date_day', '')
-        new_applicant.updated = timezone.now()
-        new_applicant.created = timezone.now()
-        new_applicant.completed = True
-        new_applicant.save()
-      else:
-        form = CompanyDetailsForm(request.POST)
-        new_company = form.save(commit=False)
-        new_company.auth_id_id = user_foreign_key
-        new_company.updated = timezone.now()
-        new_company.created = timezone.now()
-        new_company.save()
-      return HttpResponseRedirect('/loggedin')
-
-    args = {}
-    args.update(csrf(request))
+    applicantObject = None
+    companyObject = None
 
     if user_type == 0:
-      args['form'] = ApplicantDetailsForm()
+      if Applicants.objects.filter(auth_id_id=user_foreign_key).exists():
+        applicantObject = Applicants.objects.get(auth_id_id=user_foreign_key)
     else:
-      args['form'] = CompanyDetailsForm()
+      if Companies.objects.filter(auth_id_id=user_foreign_key).exists():
+        companyObject = Companies.objects.get(auth_id_id=user_foreign_key)
 
-    args['username'] = request.user.username
+    if applicantObject is not None or companyObject is not None:
+        return HttpResponseRedirect('/wall')
+    else:      
+      if request.method == 'POST':      
+        if user_type == 0:
+          form = ApplicantDetailsForm(request.POST)
+          new_applicant = form.save(commit=False)
+          new_applicant.auth_id_id = user_foreign_key
+          new_applicant.birth_year = request.POST.get('birth_date_year', '')
+          new_applicant.birth_month = request.POST.get('birth_date_month', '')
+          new_applicant.birth_day = request.POST.get('birth_date_day', '')
+          new_applicant.updated = timezone.now()
+          new_applicant.created = timezone.now()
+          new_applicant.completed = True
+          new_applicant.save()
+        else:
+          form = CompanyDetailsForm(request.POST)
+          new_company = form.save(commit=False)
+          new_company.auth_id_id = user_foreign_key
+          new_company.updated = timezone.now()
+          new_company.created = timezone.now()
+          new_company.completed = True
+          new_company.save()
+        return HttpResponseRedirect('/wall')
 
-    return render_to_response('loggedin.html', args)
+      args = {}
+      args.update(csrf(request))
 
+      if user_type == 0:
+        args['form'] = ApplicantDetailsForm()
+      else:
+        args['form'] = CompanyDetailsForm()
+
+      args['username'] = request.user.username
+      return render_to_response('loggedin.html', args)
   else:
     return HttpResponseRedirect('/login')
 

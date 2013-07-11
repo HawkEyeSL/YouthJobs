@@ -9,8 +9,6 @@
         {% load staticfiles %}
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-responsive.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
-        <link rel="stylesheet" type="text/css" href="{% static 'css/temp.css' %}" />
         
         <style type="text/css">
 		      body {
@@ -94,19 +92,13 @@
       </div>
     </div>
 
-    <!-- Begin page content -->
-    {% block maincontent %}
-    <div class="container-fluid content">
-      <div class="row-fluid">
-        <div class="span2 sidepane">
-            {% block sidepane %}{% endblock %}
-        </div>
-        <div class="span10">
-            {% block content %}{% endblock %}
-        </div>
+    <div id="wrap">
+      <!-- Begin page content -->
+      <div class="container">
+        {% block content %}{% endblock %}
       </div>
+      <div id="push"></div>
     </div>
-    {% endblock %}
 
     <div id="footer">
       <div class="container">
