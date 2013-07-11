@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from time import time
 import MySQLdb
+
+def get_upload_file_name(instance, filename):
+    return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
 
 class Districts(models.Model):
     id = models.AutoField(primary_key=True)
@@ -13,6 +17,7 @@ class Applicants(models.Model):
     id = models.AutoField(primary_key=True)
     auth_id = models.ForeignKey(User)
     full_name = models.CharField(max_length=200)
+    thumbnail = models.FileField(upload_to=get_upload_file_name)
     birth_year = models.IntegerField()
     birth_month = models.IntegerField()
     birth_day = models.IntegerField()

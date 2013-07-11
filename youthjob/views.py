@@ -45,7 +45,8 @@ def loggedin(request):
     else:      
       if request.method == 'POST':      
         if user_type == 0:
-          form = ApplicantDetailsForm(request.POST)
+          form = ApplicantDetailsForm(request.POST, request.FILES)
+          print request.FILES
           new_applicant = form.save(commit=False)
           new_applicant.auth_id_id = user_foreign_key
           new_applicant.birth_year = request.POST.get('birth_date_year', '')
