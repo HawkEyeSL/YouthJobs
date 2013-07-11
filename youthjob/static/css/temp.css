@@ -20,3 +20,9 @@ background-color: #C7E5F0;
 background-color: #A7E6FF;
 }
 
+.nav-tabs.nav-stacked > li > a {
+    border: 1px solid gray;
+}
+.nav-tabs.nav-stacked > li > a:hover, .nav-tabs.nav-stacked > li > a:focus {
+    border-color: gray;
+}
