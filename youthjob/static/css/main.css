@@ -1,4 +1,15 @@
-
+body{
+    background-image: url(/static/images/background/ticks.png); 
+    background-position: initial initial; 
+    background-repeat: initial initial;
+    /*background-color: #E5E5E5;*/
+}
+#footer{
+    background-image: url(/static/images/background/blackmamba.png); 
+    background-position: initial initial; 
+    background-repeat: initial initial;
+    /*background-color: #E5E5E5;*/
+}
 
 .content{
     padding-top: 20px;
