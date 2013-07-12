@@ -39,16 +39,18 @@
 
     <!-- Begin page content -->
     {% block maincontent %}
-    <div id="wrap">
-        <div class="container-fluid content">
-          <div class="row-fluid">
-            <div class="span3"id="sidepane">
-            {% block sidepane %}{% endblock %}
+    <div id="wrap_outer">
+        <div id="wrap">
+            <div class="container-fluid content">
+              <div class="row-fluid">
+                <div class="span3"id="sidepane">
+                {% block sidepane %}{% endblock %}
+                </div>
+                <div class="span9">
+                    {% block content %}{% endblock %}
+                </div>
+              </div>
             </div>
-            <div class="span9">
-                {% block content %}{% endblock %}
-            </div>
-          </div>
         </div>
     </div>
     {% endblock %}

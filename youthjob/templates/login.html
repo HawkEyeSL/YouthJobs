@@ -41,16 +41,20 @@
   });
 </script>
 
-<div class="container">	
-	<form class="form-signin" method="post" action="/auth/">
-	{% csrf_token %}
-		<h2 class="form-signin-heading">Please sign in</h2>
-	    <input type="text" name="username" data-placement="right" placeholder="Username" class="input-block-level" required>
-	    <input type="password" name="password" data-placement="right" placeholder="Password" class="input-block-level" required>
-	    <label class="checkbox">
-	    	<input type="checkbox" value="remember-me"> Remember me
-	    </label>
-	    <button type="submit" class="btn btn-large btn-primary">Sign in</button>
-	</form>
+<div id="wrap_outer">
+    <div id="wrap">
+        <div class="container">	
+	        <form class="form-signin" method="post" action="/auth/">
+	        {% csrf_token %}
+		        <h2 class="form-signin-heading">Please sign in</h2>
+	            <input type="text" name="username" data-placement="right" placeholder="Username" class="input-block-level" required>
+	            <input type="password" name="password" data-placement="right" placeholder="Password" class="input-block-level" required>
+	            <label class="checkbox">
+	            	<input type="checkbox" value="remember-me"> Remember me
+	            </label>
+	            <button type="submit" class="btn btn-large btn-primary">Sign in</button>
+	        </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
