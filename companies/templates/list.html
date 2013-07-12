@@ -19,8 +19,7 @@
 
     {% if 1 < list.paginator.num_pages %}
     <div class="row-fluid">
-    <div class="span6 offset6">
-    <div class="pagination">
+    <div class="pagination pagination-right">
         <ul>
             {% if list.has_previous %}
                 <li><a href="?page={{ list.previous_page_number }}"><<</a><li>
@@ -41,7 +40,6 @@
                 <li class="disabled"><a href="#">>></a><li>
             {% endif %}
         </ul>
-    </div>
     </div>
     </div>
     {% endif %}

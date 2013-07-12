@@ -7,6 +7,11 @@ body {
     /*padding-top: 40px;*/
 }
 
+.left {
+    float:left;
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
@@ -44,7 +49,7 @@ body {
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
+/*
 .container {
     width: auto;
     max-width: 680px;
@@ -52,7 +57,7 @@ body {
 .container .credit {
     margin: 20px 0;
 }
-
+*/
 body{
     background-image: url(/static/images/background/ticks.png); 
     background-position: initial initial; 
@@ -71,7 +76,22 @@ body{
     min-height:400px;
 }
 
-.sidepane{
+#sidepane{
+    min-width:184px;
     max-width:240px;
+    
+}
+#sidepane .span6{
+    min-width:200px;
 }
 
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+
+#footer{
+    min-height:40px;
+    padding:20px 0px;
+}
+
+.footerinner{
+    min-width:200px;    
+}
