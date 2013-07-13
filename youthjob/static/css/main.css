@@ -96,3 +96,14 @@ body{
 .footerinner{
     min-width:200px;    
 }
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~ skill editer~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+#skill_editor{
+    max-width:600px;
+}
+#skill_editor button{
+    margin-bottom:4px;
+}
+
+
