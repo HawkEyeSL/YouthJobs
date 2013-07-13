@@ -21,6 +21,9 @@ urlpatterns = patterns('',
     
     #company views
     url(r'^companies/', include('companies.urls')),
+
+    #generate pdf
+    url(r'^pdf/$', 'youthjob.views.some_view'),
     
     
     
