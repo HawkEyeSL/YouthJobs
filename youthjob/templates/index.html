@@ -4,9 +4,90 @@
 {% block sidepane %}{% endblock %}
 
 {% block maincontent %}
+
+<style type="text/css">
+
+      .helptext{
+        display: none;
+      }
+
+      li{
+        list-style: none;
+      }
+
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 0px;
+      }
+
+      input[type="text"], input[type="password"]{
+        width: 100% !important;
+      }
+
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#loginBtn").click(function() {
+        document.forms["loginForm"].submit();
+    });
+
+    $("#registerBtn").click(function() {
+        document.forms["registerForm"].submit();
+    });
+});
+</script>
+
 <div id="wrap_outer">
     <div id="wrap">
-        <h1>Home page content goes here....</h1>
+    	<p>Test Home</p>
     </div>
 </div>
+ 
+<!-- loginModal -->
+<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Sign In</h3>
+		</div>
+		<div class="modal-body">
+			<form id="loginForm" class="form-signin" method="post" action="/auth/">
+			{% csrf_token %}
+	            <input type="text" name="username" data-placement="right" placeholder="Username" class="input-block-level" required>
+	            <input type="password" name="password" data-placement="right" placeholder="Password" class="input-block-level" required>
+	            <label class="checkbox">
+	            	<input type="checkbox" value="remember-me"> Remember me
+	            </label>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button id="loginBtn" class="btn btn-primary">Sign In</button>
+		</div>		
+</div>
+
+<!-- registerModal -->
+<div id="registerModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Register</h3>
+		</div>
+		<div class="modal-body">
+			<form id="registerForm" class="form-signin" method="post" action="/register/">
+			{% csrf_token %}
+	            {{form}}
+			</form>	
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button id="registerBtn" class="btn btn-primary">Register</button>
+		</div>	
+</div>
+
 {% endblock %}

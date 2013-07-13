@@ -10,7 +10,10 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 
 def index(request):
-  return render_to_response('index.html')
+  c = {}
+  c.update(csrf(request))
+  c['form'] = UserRegistrationForm()
+  return render_to_response('index.html', c)
 
 def login(request):  
   c = {}
