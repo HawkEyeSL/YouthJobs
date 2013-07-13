@@ -28,6 +28,7 @@ def auth_view(request):
 
   if user is not None:
     auth.login(request, user)
+    request.session['logged_user'] = user.pk
     return HttpResponseRedirect('/loggedin')
   else:
     return HttpResponseRedirect('/invalid')
