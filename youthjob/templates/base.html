@@ -11,68 +11,11 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-responsive.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'css/temp.css' %}" />
-        
-        <style type="text/css">
-		      body {
-		        padding-top: 40px;
-		        background-color: #BDEDFF;
-	         }
-
-          /* Sticky footer styles
-          -------------------------------------------------- */
-
-          html,
-          body {
-            height: 100%;
-            /* The html and body elements cannot have any padding or margin. */
-          }
-
-          /* Wrapper for page content to push down footer */
-          #wrap {
-            min-height: 100%;
-            height: auto !important;
-            height: 100%;
-            /* Negative indent footer by it's height */
-            margin: 0 auto -60px;
-          }
-
-          /* Set the fixed height of the footer here */
-          #push,
-          #footer {
-            height: auto;
-          }
-          #footer {
-            margin-top: 60px;
-            background-color: #f5f5f5;
-          }
-
-          /* Lastly, apply responsive CSS fixes as necessary */
-          @media (max-width: 767px) {
-            #footer {
-              margin-left: -20px;
-              margin-right: -20px;
-              padding-left: 20px;
-              padding-right: 20px;
-            }
-          }
-
-          /* Custom page CSS
-          -------------------------------------------------- */
-          /* Not required for template or sticky footer method. */
-
-          .container {
-            width: auto;
-            max-width: 680px;
-          }
-          .container .credit {
-            margin: 20px 0;
-          }
-
-        </style>
 
         <script src="{% static 'js/jquery-1.8.3.js' %}"></script>        
 </head>
 <body>
+    {% block menubar %}
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -92,25 +35,29 @@
         </div>
       </div>
     </div>
+    {% endblock %}
 
     <!-- Begin page content -->
     {% block maincontent %}
-    <div class="container-fluid content">
-      <div class="row-fluid">
-        <div class="span2 sidepane">
-            {% block sidepane %}{% endblock %}
+    <div id="wrap_outer">
+        <div id="wrap">
+            <div class="container-fluid content">
+              <div class="row-fluid">
+                <div class="span3"id="sidepane">
+                {% block sidepane %}{% endblock %}
+                </div>
+                <div class="span9">
+                    {% block content %}{% endblock %}
+                </div>
+              </div>
+            </div>
         </div>
-        <div class="span10">
-            {% block content %}{% endblock %}
-        </div>
-      </div>
     </div>
     {% endblock %}
 
     <div id="footer">
-      <div class="container">
-        <p class="muted credit">This solution is developed for helping younger generation to make their life easy by finding suitable job opportunities easily. Solution is developed by  <a href="http://hawkeyesolutions.lk">HawkEye Solutions</a>.</p>
-      </div>
+    {% block footer %}
+    {% endblock %}
     </div>
 </body>
 </html>
