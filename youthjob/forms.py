@@ -22,11 +22,7 @@ class ApplicantDetailsForm(forms.ModelForm):
 		widget=forms.RadioSelect
 	)
 
-	CHECKBOX_CHOICES = Skill.objects.all().values_list('name', flat=True)
-	print CHECKBOX_CHOICES
-	skills = forms.MultipleChoiceField(required=False, 
-                                    widget=CheckboxSelectMultiple(), 
-                                    choices=CHECKBOX_CHOICES,)
+	skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(), widget=CheckboxSelectMultiple()) 
 
 	this_year = datetime.date.today().year
 	birth_date = forms.DateField(widget=extras.SelectDateWidget(years=range(this_year-50, this_year+1)))

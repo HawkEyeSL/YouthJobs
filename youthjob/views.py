@@ -5,6 +5,7 @@ from django.core.context_processors import csrf
 from forms import UserRegistrationForm, ApplicantDetailsForm, CompanyDetailsForm
 from django.contrib.auth.models import User
 from models import Applicants, Companies
+from vacancies.models import User_skills
 from django.utils import timezone
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
@@ -49,9 +50,8 @@ def loggedin(request):
         return HttpResponseRedirect('/wall')
     else:      
       if request.method == 'POST':      
-        if user_type == 0:
+        if user_type == 0:          
           form = ApplicantDetailsForm(request.POST, request.FILES)
-          print request.FILES
           new_applicant = form.save(commit=False)
           new_applicant.auth_id_id = user_foreign_key
           new_applicant.birth_year = request.POST.get('birth_date_year', '')
@@ -61,6 +61,9 @@ def loggedin(request):
           new_applicant.created = timezone.now()
           new_applicant.completed = True
           new_applicant.save()
+          skills = request.POST.getlist('skills')
+          for skill in skills:
+            User_skills(user_id_id=new_applicant.pk, skill_id_id=skill.encode('utf8')).save()
         else:
           form = CompanyDetailsForm(request.POST)
           new_company = form.save(commit=False)

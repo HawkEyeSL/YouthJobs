@@ -3,8 +3,7 @@ from time import time
 import MySQLdb
 from skills.models import Skill
 from django.contrib.auth.models import User
-from youthjob.models import Districts
-from youthjob.models import Companies
+from youthjob.models import Districts, Companies, Applicants
 # Create your models here.
 
 class Vacancies(models.Model):
@@ -38,8 +37,8 @@ class Vacancies(models.Model):
     updated = models.DateTimeField('date updated')
     created = models.DateTimeField('date published')
     
-class User_skils(models.Model):
-    user_id = models.ForeignKey(User) 
+class User_skills(models.Model):
+    user_id = models.ForeignKey(Applicants) 
     skill_id = models.ForeignKey(Skill)
     
 class Vacancy_skills(models.Model):

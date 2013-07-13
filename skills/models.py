@@ -7,6 +7,5 @@ class Skill(models.Model):
     alias = models.CharField(max_length=200)
 
     def __str__(self):
-        return u'%s %s %s %s' % (self.id, self.name, self.name,
-            self.description, self.alias)
+        return u'%s %s %s %s' % (self.id, self.name, self.description, self.alias)
 
