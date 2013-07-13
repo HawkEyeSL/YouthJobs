@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from models import Applicants, Companies, Districts
 from django.forms import extras
-from skills.models import Skills
+from skills.models import Skill
+from django.forms.widgets import CheckboxSelectMultiple
 import datetime
 
 class CompanyDetailsForm(forms.ModelForm):
@@ -21,7 +22,8 @@ class ApplicantDetailsForm(forms.ModelForm):
 		widget=forms.RadioSelect
 	)
 
-	CHECKBOX_CHOICES = Skills.objects.all().values_list('name', flat=True)
+	CHECKBOX_CHOICES = Skill.objects.all().values_list('name', flat=True)
+	print CHECKBOX_CHOICES
 	skills = forms.MultipleChoiceField(required=False, 
                                     widget=CheckboxSelectMultiple(), 
                                     choices=CHECKBOX_CHOICES,)
