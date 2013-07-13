@@ -4,8 +4,7 @@ import MySQLdb
 from skills.models import Skill
 from django.contrib.auth.models import User
 from youthjob.models import Districts
-from companies.models import Companies
-
+from youthjob.models import Companies
 # Create your models here.
 
 class Vacancies(models.Model):
@@ -45,4 +44,4 @@ class User_skils(models.Model):
     
 class Vacancy_skills(models.Model):
     vacancy_id = models.ForeignKey(Vacancies)
-    skill_id = models.ForeignKey(Skil)
+    skill_id = models.ForeignKey(Skill)
