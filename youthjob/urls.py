@@ -18,6 +18,9 @@ urlpatterns = patterns('',
     #for vacancies views
     url(r'^vacancies/', include('vacancies.urls')),    
 
+    #for generate CV
+    url(r'^gencv/', include('gencv.urls')),    
+
     #User registration urls
     url(r'^register/$', 'youthjob.views.register_user'),
     url(r'^register_success/$', 'youthjob.views.register_success'),
