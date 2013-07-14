@@ -25,9 +25,9 @@ def auth_view(request):
   username = request.POST.get('username', '')
   password = request.POST.get('password', '')
   user = auth.authenticate(username=username, password=password)
-
   if user is not None:
     auth.login(request, user)
+    request.session['logged_user'] = user.pk
     return HttpResponseRedirect('/loggedin')
   else:
     return HttpResponseRedirect('/invalid')

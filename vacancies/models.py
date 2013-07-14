@@ -14,7 +14,6 @@ class Vacancy(models.Model):
     district = models.ForeignKey(Districts)
     
     experience = models.IntegerField() #values save in number of months, one year means 12 month
-    personality = models.IntegerField() #for now it is a value between 0 - 100
     
     VACANCY_TYPES = (
         ('1', 'IT'),
@@ -44,3 +43,7 @@ class User_skills(models.Model):
 class Vacancy_skills(models.Model):
     vacancy_id = models.ForeignKey(Vacancy)
     skill_id = models.ForeignKey(Skill)
+
+class Vacancy_personality(models.Model):
+    vacancy_id = models.ForeignKey(Vacancy)
+    personality_id = models.IntegerField()

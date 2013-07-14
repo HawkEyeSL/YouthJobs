@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from skills.models import Skill
 
 def search(request,text):
-    skills = Skill.objects.filter(name__contains=text.rstrip('/'))
+    skills = Skill.objects.filter(name__icontains=text.rstrip('/'))
     skillNames = [y['name'] for y in skills.values()]
     jsondata = simplejson.dumps(skillNames)
     return HttpResponse(jsondata)
