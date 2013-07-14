@@ -1,4 +1,8 @@
 
-
 *~
 *.pyc
+*py.BACKUP.*
+*py.BASE.*
+*py.LOCAL.*
+*py.REMOTE.*
+*py.orig

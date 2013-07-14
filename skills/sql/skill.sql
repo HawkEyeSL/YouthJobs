@@ -1,3 +1,4 @@
+
 INSERT INTO skills_skill (name) VALUES ('Java');
 INSERT INTO skills_skill (name) VALUES ('C#');
 INSERT INTO skills_skill (name) VALUES ('Ruby');

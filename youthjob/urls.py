@@ -29,5 +29,10 @@ urlpatterns = patterns('',
     url(r'^pdf/$', 'youthjob.views.some_view'),
     
     
+    #skills views
+    url(r'^skills/', include('skills.urls')),
+    
+    
+    
     
 )

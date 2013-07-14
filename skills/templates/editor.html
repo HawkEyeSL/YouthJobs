@@ -1,0 +1,142 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+<div id="skill_editor">
+    <div class="row-fluid">
+        <div class="span7">
+            <div class="input-append">
+                <input id="skill_text" type="text" placeholder="Type your skill">
+                <button class="btn" type="button"><i class="icon-plus" onclick="js:addNewSkillToSystem()"></i></button>
+            </div>
+            <div id="skill_editor_popup">
+            </div>
+        </div>
+        <div class="span5">
+            <div id="skill_list">
+            </div>
+            <br/><br/>
+            <div>
+                <button class="btn btn-primary" type="button" onclick="js:saveAllNewSkills()">Save added skills</button>
+                <button class="btn" type="button">Cancel</button>
+            <div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    var suggesionText;
+    var addedSkills = [];
+    var lastResultSet = false;
+    
+    console.log("Edit text field js works fine");//#########
+    $('#skill_editor').keyup(function() {
+        $("#skill_editor_popup").html("");
+        inputText = $("#skill_text").val();
+        console.log("Edit text field changed",inputText);//##########
+        if (2 < inputText.length){
+            lastResultSet = true;
+            console.log("trying to send ajax request");//##########
+            ajaxSend(inputText);
+        }
+        else{
+            lastResultSet = false;
+        }
+        
+        function ajaxSend(inputText){
+            $.ajax({
+              type: "GET",
+              url: "/skills/search/"+inputText,
+            }).done(showSkills);
+            console.log("ajax request sent");//##########
+        }
+        function showSkills(result){
+            console.log("we've got something");//##########
+            result = $.parseJSON(result);
+            console.log(result,result.length,"EEE");//##########
+            if(0 < result.length){
+                suggesionText = "<a class=\"close\" data-dismiss=\"alert\" href=\"#\">&times;</a>";
+                $.each(result,addSuggestions);
+                $("#skill_editor_popup").html(suggesionText);
+                //Let''s add click event to thes new buttons
+                $("#skill_editor_popup button").click(function(event) {
+                    addNewSkill(event.target.name)
+                });
+            }
+        }
+        function skillError(result){
+        
+        }
+        function addSuggestions(i,item){
+            console.log("here is from the deep sea.",i,"::",item);//##########
+            suggesionText += "<button class=\"btn btn-small btn-info\" type=\"button\" name=\""+item+"\">"+item+" <i class=\"icon-plus\"></i></button>\n";
+        }    
+    });
+    
+    //~~~~~~~~~~~~~~~~~ adding suggested skills ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    function addNewSkill(skill){
+        console.log("suggection selected",skill);
+        if(jQuery.inArray(skill, addedSkills)==-1){
+            addedSkills.push(skill);
+            //show new skill_list
+            updateSkillList()
+        }
+    }
+    
+    //~~~~~~~~~~~~~~~~~ removing suggested skills ~~~~~~~~~~~~~~~~~~~~~~~
+    function removeSkill(skill){
+        console.log("selected to remove",skill);
+        addedSkills =   jQuery.grep(addedSkills, function(n){
+                            return (n != skill );
+                        });
+        //show new skill_list
+        updateSkillList()
+    }
+    
+    
+    
+    //~~~~~~~~~~~~~~~~~ updating skills ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    function updateSkillList(){
+        skillText = "";
+        $.each(addedSkills,addSkillList);
+        $("#skill_list").html(skillText);
+        //Let''s add click event to thes new buttons
+        $("#skill_list button").click(function(event) {
+            removeSkill(event.target.name)
+        });
+    }
+    function addSkillList(i,item){
+        console.log("Here we are including ",item," to show your colors.",i);//##########
+        skillText += "<button class=\"btn btn-small btn-success\" type=\"button\" name=\""+item+"\">"+item+" <i class=\"icon-remove\"></i></button>\n";
+    }
+    
+    //~~~~~~~~~~~~~~~~~ updating skills ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    function addNewSkillToSystem(){
+        console.log("Who is that fool clicked that trap?")
+        skill = $('#skill_text').val();
+        if(! lastResultSet){
+            //add this skill to skills table
+        }
+        addNewSkill(skill)
+    }
+    
+    //~~~~~~~~~~~~~~~~~ Save selected skills ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    function saveAllNewSkills(){
+        $.ajax({
+              type: "POST",
+              url: "/vacancies/addskillstouser/",
+              data: addedSkills,
+            }).done(cancelEditingSkills);
+            console.log("ajax request sent to save data");//##########
+    }
+    
+    //~~~~~~~~~~~~~~~~~ Cancel editing skills ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    function cancelEditingSkills(){
+        console.log("Now we are leaving editing skills");
+        //Do something here
+    }
+    
+</script>
+
+{% endblock %}
+
