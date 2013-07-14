@@ -15,6 +15,9 @@ urlpatterns = patterns('',
     url(r'^invalid/$', 'youthjob.views.invalid_login'),
     url(r'^wall/$', 'youthjob.views.wall'),
 
+    #for vacancies views
+    url(r'^vacancies/$', include('vacancies.urls')),    
+
     #User registration urls
     url(r'^register/$', 'youthjob.views.register_user'),
     url(r'^register_success/$', 'youthjob.views.register_success'),
