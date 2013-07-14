@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^wall/$', 'youthjob.views.wall'),
 
     #for vacancies views
-    url(r'^vacancies/$', include('vacancies.urls')),    
+    url(r'^vacancies/', include('vacancies.urls')),    
 
     #User registration urls
     url(r'^register/$', 'youthjob.views.register_user'),

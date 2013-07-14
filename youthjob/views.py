@@ -133,9 +133,6 @@ def some_view(request):
     p.save()
     return response
 
-from reportlab.pdfgen import canvas
-from django.http import HttpResponse
-
 def some_view(request):
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')

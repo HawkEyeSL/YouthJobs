@@ -1,0 +1,16 @@
+{% extends "base_site.html" %}
+
+{% block maincontent %}
+<div id="wrap_outer">
+    <div id="wrap">
+        <div class="container">	
+	        <form class="form-signin" method="post" action="/vacancies/postjob/">
+	        {% csrf_token %}
+		        <h2 class="form-signin-heading">Post a job</h2>
+	            {{form}}
+	            <button type="submit" class="btn btn-large btn-primary">Post</button>
+	        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

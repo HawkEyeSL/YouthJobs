@@ -4,7 +4,7 @@ import views
 
 urlpatterns = patterns('',
      
-    #list all companies
     url(r'^$', views.index, name='index'),
+    url(r'postjob/$', views.post_job, name='post_job'),
     
     )
