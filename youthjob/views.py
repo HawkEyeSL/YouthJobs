@@ -6,9 +6,10 @@ from forms import UserRegistrationForm, ApplicantDetailsForm, CompanyDetailsForm
 from django.contrib.auth.models import User
 from models import Applicants, Companies
 from vacancies.models import User_skills
-from django.utils import timezone
+from django.utils import timezone, simplejson
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
+from django.template import RequestContext
 
 def index(request):
   c = {}
@@ -21,16 +22,21 @@ def login(request):
   c.update(csrf(request))
   return render_to_response('login.html', c)
 
-def auth_view(request):
-  username = request.POST.get('username', '')
-  password = request.POST.get('password', '')
+def auth_view(request): 
+  data = {}
+  username = request.GET['username'] 
+  password = request.GET['password']  
   user = auth.authenticate(username=username, password=password)
   if user is not None:
     auth.login(request, user)
     request.session['logged_user'] = user.pk
-    return HttpResponseRedirect('/loggedin')
+    request.session['logged_username'] = user.username
+    data['success'] = True
+    data['msg'] = "You have been successfully Logged In"
   else:
-    return HttpResponseRedirect('/invalid')
+    data['success'] = False
+    data['msg'] = "There was an error logging you in. Please Try again"
+  return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
 def loggedin(request):
     userObject = User.objects.get(username=request.user.username)
@@ -94,7 +100,7 @@ def logout(request):
     request.session['logged_in'] = False
   except KeyError:
     pass
-  return HttpResponseRedirect('/login')
+  return HttpResponseRedirect('/')
 
 def register_user(request):
   if request.method == 'POST':
@@ -114,24 +120,7 @@ def register_success(request):
   return render_to_response('register_success.html')
 
 def wall(request):
-  return render_to_response('wall.html')
-
-def some_view(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
-
-    # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
-
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
-    return response
+  return render_to_response('wall.html', context_instance=RequestContext(request))
 
 def some_view(request):
     # Create the HttpResponse object with the appropriate PDF headers.

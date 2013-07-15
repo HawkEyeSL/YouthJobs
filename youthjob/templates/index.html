@@ -1,7 +1,4 @@
-{% extends "base_site.html" %}
-
-
-{% block sidepane %}{% endblock %}
+{% extends "base_home.html" %}
 
 {% block maincontent %}
 
@@ -33,15 +30,35 @@
 </style>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("#loginBtn").click(function() {
-        document.forms["loginForm"].submit();
-    });
+	$(document).ready(function() {
+        $("#loginBtn").click(function() { // catch the form's submit event
+        	var dataString = '&username=' + $('input[name=username]').val() +
+        						'&password=' + $('input[name=password]').val();
 
-    $("#registerBtn").click(function() {
-        document.forms["registerForm"].submit();
-    });
-});
+            $.ajax({
+            	type:"GET",
+            	url:"/auth/",
+		        data: dataString,
+		        success: function(data) {
+		        	if(data['success']){
+		        		$(".alert-success").html(data["msg"]);
+		        		$(".alert-error").hide();
+		        		$(".alert-success").show();
+		        		window.location = "/loggedin/";
+		            } else {
+		        		$(".alert-error").html(data["msg"]);
+		        		$(".alert-success").hide();
+		        		$(".alert-error").show();
+		        	}
+		        }   
+		     }); 
+		    return false; 
+        });
+
+	    // $("#registerBtn").click(function() {
+	    //     document.forms["registerForm"].submit();
+	    // });
+	});
 </script>
 
 <div id="wrap_outer">
@@ -57,10 +74,12 @@
 			<h3 id="myModalLabel">Sign In</h3>
 		</div>
 		<div class="modal-body">
+			<div class="alert alert-success" style="display:none;"></div>
+			<div class="alert alert-error" style="display:none;"></div>
 			<form id="loginForm" class="form-signin" method="post" action="/auth/">
 			{% csrf_token %}
-	            <input type="text" name="username" data-placement="right" placeholder="Username" class="input-block-level" required>
-	            <input type="password" name="password" data-placement="right" placeholder="Password" class="input-block-level" required>
+	            <input type="text" name="username" data-placement="right" placeholder="Username" class="input-block-level required">
+	            <input type="password" name="password" data-placement="right" placeholder="Password" class="input-block-level required">
 	            <label class="checkbox">
 	            	<input type="checkbox" value="remember-me"> Remember me
 	            </label>

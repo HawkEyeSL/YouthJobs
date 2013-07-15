@@ -1,4 +1,6 @@
-{% extends "base_site.html" %}
+{% extends "base.html" %}
+
+{% extends "menu_bar_with_logout.html" %}
 
 {% block content %}
 
@@ -47,14 +49,6 @@
 
 </style>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    //$("input").attr('required', '');
-  });
-</script>
-
-<h2>Hi {{username}} , Welcome to our site. </h2>
-<p>Click <a href="/logout/">here</a> to logout.</p>
 <div class="container">	
 	<form class="form-signin" method="post" enctype="multipart/form-data" action="/loggedin/">
 	{% csrf_token %}

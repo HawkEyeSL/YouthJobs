@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from orca.punctuation_settings import cube_root
 from vacancies.models import User_skills
 from skills.models import Skill
+from django.template import RequestContext
 
 def index(request):
     cv_details = {}
@@ -22,4 +23,4 @@ def index(request):
         skills.append(skill.skill_id)
         
     cv_details['skills'] = skills
-    return render_to_response('preview.html', cv_details,)
+    return render_to_response('preview.html', cv_details, context_instance=RequestContext(request))

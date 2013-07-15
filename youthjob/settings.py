@@ -2,6 +2,9 @@
 import os
 import socket
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
