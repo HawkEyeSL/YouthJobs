@@ -7,9 +7,7 @@ from youthjob.models import Companies
 from vacancies.models import Vacancy, Vacancy_skills, Vacancy_personality
 from django.template import RequestContext
 from django.utils import timezone
-
-def index(request):
-    return HttpResponse("Hello, It works !!!")
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def post_job(request):
   success = False
@@ -55,3 +53,21 @@ def post_job(request):
     job_form = JobPostingForm()
     ctx = {'job_form':job_form}
     return render_to_response('post_job.html', ctx, context_instance=RequestContext(request))
+
+def vacancies_list(request):
+  success = False
+  ctx = None
+  logged_user_id = request.session.get('logged_user', False)
+  companyObj = Companies.objects.get(auth_id_id=logged_user_id)
+  vacancy_list = Vacancy.objects.filter(company_id=companyObj.id)
+  paginator = Paginator(vacancy_list, 12) # Show 12 contacts per page
+  page = request.GET.get('page')
+  try:
+    vacancies = paginator.page(page)
+  except PageNotAnInteger:
+    # If page is not an integer, deliver first page.
+    vacancies = paginator.page(1)
+  except EmptyPage:
+    # If page is out of range (e.g. 9999), deliver last page of results.
+    vacancies = paginator.page(paginator.num_pages)
+  return render_to_response('vacancies_list.html', {'list':vacancies}, context_instance=RequestContext(request))

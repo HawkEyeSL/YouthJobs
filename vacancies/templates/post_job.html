@@ -1,6 +1,6 @@
 {% extends "base_company.html" %}
 
-{% block maincontent %}
+{% block content %}
 
 <style type="text/css">
 
@@ -18,8 +18,8 @@
 
 </style>
 
-<div id="wrap_outer">
     <div id="wrap">
+      <h1>Post a job</h1>
         <div class="container">	
         	{% if success %}
 			    <p style="color:green;"> Job added successfully </p>
@@ -34,5 +34,4 @@
 			</form>
         </div>
     </div>
-</div>
 {% endblock %}
