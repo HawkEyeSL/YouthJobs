@@ -89,7 +89,7 @@ def loggedin(request):
         args['form'] = CompanyDetailsForm()
 
       args['username'] = request.user.username
-      return render_to_response('loggedin.html', args)
+      return render_to_response('loggedin.html', args, context_instance=RequestContext(request))
 
 def invalid_login(request):
   return render_to_response('invalid_login.html')
