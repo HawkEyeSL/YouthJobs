@@ -1,12 +1,30 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block menubar %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="brand">YouthJobs.lk</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav" style="float:right;">
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
 
+{% block content %}
 
 <div id="wrap_outer">
     <div id="wrap">
         <h2>You have registered successfully!</h2>
-        <p>Click <a href="/login/">here</a> to login.</p>
+        <p>Click <a href="/">here</a> to go back to home page.</p>
     </div>
 </div>
 {% endblock %}

@@ -31,6 +31,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+
+    	$("#id_type_0").prop("checked", true);
+
         $("#loginBtn").click(function() { // catch the form's submit event
         	var dataString = '&username=' + $('input[name=username]').val() +
         						'&password=' + $('input[name=password]').val();
@@ -55,9 +58,107 @@
 		    return false; 
         });
 
-	    // $("#registerBtn").click(function() {
-	    //     document.forms["registerForm"].submit();
-	    // });
+        var delay = (function(){
+		  var timer = 0;
+		  return function(callback, ms){
+		    clearTimeout (timer);
+		    timer = setTimeout(callback, ms);
+		  };
+		})();
+
+		var isUserNameValid = true;
+
+        $('#id_username').keyup(function() {	
+			$(".username-error").hide();
+	    	var dataString = '&username=' + $(this).val();
+	    	isUserNameValid = true
+        	//delay(function(){
+        		$.ajax({
+            		type:"GET",
+            		url:"/check_username/",
+		        	data: dataString,
+		        	success: function(data) {		        		
+		        		$(".username-error").html(data["msg"]);
+		        		$(".alert-success").hide();
+		        		$(".username-error").show();
+        				$(".username-error").focus();
+        				isUserNameValid = false;
+		        	}   
+			    }); 
+			    return false; 
+        	//}, 500 );
+		});
+
+		var isEmailValid = false;
+
+		$('#id_email').keyup(function() {	
+			$(".email-error").hide();
+	    	var email = $(this).val();
+        	//delay(function(){
+        		if(isValidEmailAddress(email)){
+        			isEmailValid = true;
+        		} else {
+        			isEmailValid = false;
+        			$(".email-error").html("Please enter a valid email address");
+        			$(".alert-success").hide();
+        			$(".email-error").show();
+        			$(".email-error").focus();
+        		}
+        	//}, 500 );
+		});
+
+		var isValidPassword = false;
+
+		$('#id_password1').keyup(function() {	
+			$(".password-error").hide();
+	    	var password = $(this).val();
+        	//delay(function(){
+        		if(password.length >= 6){
+        			isValidPassword = true;
+        		} else {
+        			isValidPassword = false;
+        			$(".password-error").html("Password should have at least 6 characters");
+        			$(".alert-success").hide();
+        			$(".password-error").show();
+        			$(".password-error").focus();
+        		}
+        	//}, 500 );
+		});
+
+		var passwordsMatch = false;
+
+		$('#id_password2').keyup(function() {	
+			$(".password-error").hide();
+			var apassword = $("#id_password1").val();
+	    	var cpassword = $(this).val();
+        	//delay(function(){
+        		if(apassword == cpassword){
+        			passwordsMatch = true;
+        		} else {
+        			passwordsMatch = false;
+        			$(".password-error").html("Password comfirmation failed");
+        			$(".alert-success").hide();
+        			$(".password-error").show();
+        			$(".password-error").focus();
+        		}
+        	//}, 500 );
+		});
+
+		function isValidEmailAddress(emailAddress) {
+    		var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+		    return pattern.test(emailAddress);
+		}
+
+	    $("#registerBtn").click(function() {
+	    	if(isUserNameValid && isEmailValid && isValidPassword && passwordsMatch && $("#id_username").val() != ""){
+	    		document.getElementById('registerForm').submit();	    		
+			} else {
+				$(".modal-body").scrollTop();
+				$(".submit-error").html("Please check again and submit");
+				$(".alert-success").hide();
+				$(".submit-error").show();
+			}
+	    });
 	});
 </script>
 
@@ -98,6 +199,11 @@
 			<h3 id="myModalLabel">Register</h3>
 		</div>
 		<div class="modal-body">
+			<div class="alert alert-success" style="display:none;"></div>
+			<div class="alert alert-error submit-error" style="display:none;"></div>
+			<div class="alert alert-error username-error" style="display:none;"></div>
+			<div class="alert alert-error email-error" style="display:none;"></div>
+			<div class="alert alert-error password-error" style="display:none;"></div>
 			<form id="registerForm" class="form-signin" method="post" action="/register/">
 			{% csrf_token %}
 	            {{form}}

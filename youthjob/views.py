@@ -17,6 +17,14 @@ def index(request):
   c['form'] = UserRegistrationForm()
   return render_to_response('index.html', c)
 
+def check_username(request): 
+  data = {}
+  username = request.GET['username'] 
+  user = User.objects.get(username=username)
+  if user is not None:
+    data['msg'] = "Username exists"
+  return HttpResponse(simplejson.dumps(data), mimetype="application/json")
+
 def auth_view(request): 
   data = {}
   username = request.GET['username'] 
@@ -115,6 +123,10 @@ def register_success(request):
   return render_to_response('register_success.html')
 
 def wall(request):
+  if Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)) is not None:
+    request.session['logged_user_image'] = Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)).thumbnail
+  else:
+    request.session['logged_user_image'] = "images/default.png"
   return render_to_response('wall.html', context_instance=RequestContext(request))
 
 def some_view(request):
