@@ -44,14 +44,14 @@
 		        data: dataString,
 		        success: function(data) {
 		        	if(data['success']){
-		        		$(".alert-success").html(data["msg"]);
-		        		$(".alert-error").hide();
-		        		$(".alert-success").show();
+		        		$(".login-success").html(data["msg"]);
+		        		$(".login-error").hide();
+		        		$(".login-success").show();
 		        		window.location = "/loggedin/";
 		            } else {
-		        		$(".alert-error").html(data["msg"]);
-		        		$(".alert-success").hide();
-		        		$(".alert-error").show();
+		        		$(".login-error").html(data["msg"]);
+		        		$(".login-success").hide();
+		        		$(".login-error").show();
 		        	}
 		        }   
 		     }); 
@@ -175,8 +175,8 @@
 			<h3 id="myModalLabel">Sign In</h3>
 		</div>
 		<div class="modal-body">
-			<div class="alert alert-success" style="display:none;"></div>
-			<div class="alert alert-error" style="display:none;"></div>
+			<div class="alert alert-success login-success" style="display:none;"></div>
+			<div class="alert alert-error login-error" style="display:none;"></div>
 			<form id="loginForm" class="form-signin" method="post" action="/auth/">
 			{% csrf_token %}
 	            <input type="text" name="username" data-placement="right" placeholder="Username" class="input-block-level required">

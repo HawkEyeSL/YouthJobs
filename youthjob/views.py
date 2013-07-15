@@ -48,6 +48,8 @@ def loggedin(request):
     applicantObject = None
     companyObject = None
 
+    print user_type
+
     if user_type == 0:
       if Applicants.objects.filter(auth_id_id=user_foreign_key).exists():
         applicantObject = Applicants.objects.get(auth_id_id=user_foreign_key)
@@ -123,11 +125,13 @@ def register_success(request):
   return render_to_response('register_success.html')
 
 def wall(request):
-  if Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)) is not None:
-    request.session['logged_user_image'] = Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)).thumbnail
+  if User.objects.get(id=request.session.get('logged_user', False)).is_staff == 0:
+    if Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)) is not None:
+      request.session['logged_user_image'] = Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)).thumbnail
+    return render_to_response('wall.html', context_instance=RequestContext(request))
   else:
-    request.session['logged_user_image'] = "images/default.png"
-  return render_to_response('wall.html', context_instance=RequestContext(request))
+    return render_to_response('company_wall.html', context_instance=RequestContext(request))
+
 
 def some_view(request):
     # Create the HttpResponse object with the appropriate PDF headers.

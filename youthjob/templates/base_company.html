@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% block menubar %}
+  <style type="text/css">
+    #user_image { text-align:center; margin-right: 5px; height: 100% !important; vertical-align:middle;}
+    #user_image img { height: 42px !important; width: auto !important; border-radius: 5px; }
+  </style>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -12,6 +17,10 @@
           <a href="/wall/" class="brand">YouthJobs.lk</a>
           <div class="nav-collapse collapse">
             <ul class="nav" style="float:right;">
+              {% if request.session.logged_user_image %}
+                <li id="user_image"><img src="/static/{{ request.session.logged_user_image }}" alt="Profile Picture" /></li>
+              {% endif %}
+
               <li id="user" style="border-style:solid;border-width:1px;border-color:green;"><a href="/wall/" style="color:green;"  data-toggle="modal">{{ request.session.logged_username }}</a></li>
               <li id="logout" style="border-style:solid;border-width:1px;border-color:red;margin-left:5px;"><a href="/logout/" style="color:red;" data-toggle="modal">Logout</a></li>
             </ul>
@@ -21,34 +30,11 @@
     </div>
 {% endblock %}
 
-{% block content %}
-
-<style type="text/css">
-
-      .helptext{
-        display: none;
-      }
-
-      li{
-        list-style: none;
-      }
-
-      input{
-        width: 50% !important;
-      }
-
-</style>
-
-<div class="container">	
-	<form class="form-signin" method="post" enctype="multipart/form-data" action="/loggedin/">
-	{% csrf_token %}
-		<h2 class="form-signin-heading">Please complete your profile</h2>
-	    {{form}}
-      <br />
-      <br />
-	    <button type="reset" class="btn btn-large btn-primary">Reset</button>
-	    <button type="submit" class="btn btn-large btn-primary">Save</button>
-	</form>
-</div>
-
+{% block sidepane %}
+    <ul class="nav nav-list nav-stacked">
+      <li><a href="#"><i class="icon-user"></i> Company Profile</a></li>
+      <li><a href="#"><i class="icon-wrench"></i> Account Settings</a></li>
+      <li class="nav-header">Other Activities</li>
+      <li><a href=""><i class="icon-globe"></i> View Posted Jobs</a></li>
+    </ul>
 {% endblock %}
