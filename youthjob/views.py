@@ -17,11 +17,6 @@ def index(request):
   c['form'] = UserRegistrationForm()
   return render_to_response('index.html', c)
 
-def login(request):  
-  c = {}
-  c.update(csrf(request))
-  return render_to_response('login.html', c)
-
 def auth_view(request): 
   data = {}
   username = request.GET['username'] 

@@ -31,7 +31,7 @@ class ApplicantDetailsForm(forms.ModelForm):
 
 	class  Meta:
 		model = Applicants
-		fields = ('full_name', 'birth_date', 'gender', 'address','district' ,'phone', 'thumbnail', 'skills')
+		fields = ('title', 'full_name', 'birth_date', 'gender', 'address','district' ,'phone', 'thumbnail', 'skills')
 
 class UserRegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
