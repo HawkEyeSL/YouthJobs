@@ -126,6 +126,7 @@ def register_success(request):
 
 def wall(request):
   if User.objects.get(id=request.session.get('logged_user', False)).is_staff == 0:
+    request.session['logged_user_image'] = "images/default.png"
     if Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)) is not None:
       request.session['logged_user_image'] = Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)).thumbnail
     return render_to_response('wall.html', context_instance=RequestContext(request))

@@ -1,0 +1,38 @@
+{% extends "base_site.html" %}
+
+{% block content %}
+<script type="text/javascript">
+	$(document).ready(function() {
+        $("#applyBtn").click(function() { 
+        	var dataString = '&vacancy_id=' + $("input[name=vacancy_id]").val() +
+        						'&applicant_id=' + $("input[name=applicant_id]").val();
+
+            $.ajax({
+            	type:"GET",
+            	url:"/vacancies/apply/",
+		        data: dataString,
+		        success: function(data) {
+		        	if(data['success']){
+		        		$("#applyBtn").hide();
+		        		$("#successBtn").show();
+		        	}
+		        }   
+		     }); 
+		    return false; 
+        });
+    });
+</script>
+
+    <h3>{{ vacancy_details.name }}</h3>
+    <p>{{ vacancy_details.description }}</p>
+
+    <br /><br />
+    <input type="hidden" name="vacancy_id" value="{{ vacancy_id }}"> 
+    <input type="hidden" name="applicant_id" value="{{ applicant_id }}"> 
+    {% if applied %}
+    	<button class="btn btn-success">You have applied for this job</button>
+    {% else %}
+    	<button id="applyBtn" class="btn btn-info">Apply</button>
+    	<button id="successBtn" class="btn btn-success" style="display:none;">You have applied for this job</button>
+    {% endif %}
+{% endblock %}

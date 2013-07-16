@@ -35,15 +35,36 @@ class Vacancy(models.Model):
     
     updated = models.DateTimeField('date updated')
     created = models.DateTimeField('date published')
+
+    def __unicode__(self):
+        return u'%s %s %s %s %s %s %s %s %s' % (self.id, self.company_id, 
+            self.name, self.description, self.district, self.vacancy_type, 
+            self.salary_ranges, self.updated, self.created)
     
 class User_skills(models.Model):
     user_id = models.ForeignKey(Applicants) 
     skill_id = models.ForeignKey(Skill)
     
+    def __unicode__(self):
+        return u'%s %s' % (self.user_id, self.skill_id)
+    
 class Vacancy_skills(models.Model):
     vacancy_id = models.ForeignKey(Vacancy)
     skill_id = models.ForeignKey(Skill)
 
+    def __unicode__(self):
+        return u'%s %s' % (self.vacancy_id, self.skill_id)
+
 class Vacancy_personality(models.Model):
     vacancy_id = models.ForeignKey(Vacancy)
     personality_id = models.IntegerField()
+
+    def __unicode__(self):
+        return u'%s %s' % (self.vacancy_id, self.personality_id)
+
+class Vacancy_applicants(models.Model):
+    vacancy_id = models.ForeignKey(Vacancy)
+    applicant_id = models.ForeignKey(Applicants)
+
+    def __unicode__(self):
+        return u'%s %s' % (self.vacancy_id, self.applicant_id)
