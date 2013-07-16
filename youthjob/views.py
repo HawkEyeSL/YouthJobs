@@ -6,9 +6,10 @@ from forms import UserRegistrationForm, ApplicantDetailsForm, CompanyDetailsForm
 from django.contrib.auth.models import User
 from models import Applicants, Companies
 from vacancies.models import User_skills
-from django.utils import timezone
+from django.utils import timezone, simplejson
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
+from django.template import RequestContext
 
 def index(request):
   c = {}
@@ -16,22 +17,29 @@ def index(request):
   c['form'] = UserRegistrationForm()
   return render_to_response('index.html', c)
 
-def login(request):  
-  c = {}
-  c.update(csrf(request))
-  return render_to_response('login.html', c)
+def check_username(request): 
+  data = {}
+  username = request.GET['username'] 
+  user = User.objects.get(username=username)
+  if user is not None:
+    data['msg'] = "Username exists"
+  return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
-def auth_view(request):
-  username = request.POST.get('username', '')
-  password = request.POST.get('password', '')
+def auth_view(request): 
+  data = {}
+  username = request.GET['username'] 
+  password = request.GET['password']  
   user = auth.authenticate(username=username, password=password)
-
   if user is not None:
     auth.login(request, user)
     request.session['logged_user'] = user.pk
-    return HttpResponseRedirect('/loggedin')
+    request.session['logged_username'] = user.username
+    data['success'] = True
+    data['msg'] = "You have been successfully Logged In"
   else:
-    return HttpResponseRedirect('/invalid')
+    data['success'] = False
+    data['msg'] = "There was an error logging you in. Please Try again"
+  return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
 def loggedin(request):
     userObject = User.objects.get(username=request.user.username)
@@ -39,6 +47,8 @@ def loggedin(request):
     user_foreign_key = userObject.id
     applicantObject = None
     companyObject = None
+
+    print user_type
 
     if user_type == 0:
       if Applicants.objects.filter(auth_id_id=user_foreign_key).exists():
@@ -84,7 +94,7 @@ def loggedin(request):
         args['form'] = CompanyDetailsForm()
 
       args['username'] = request.user.username
-      return render_to_response('loggedin.html', args)
+      return render_to_response('loggedin.html', args, context_instance=RequestContext(request))
 
 def invalid_login(request):
   return render_to_response('invalid_login.html')
@@ -95,7 +105,7 @@ def logout(request):
     request.session['logged_in'] = False
   except KeyError:
     pass
-  return HttpResponseRedirect('/login')
+  return HttpResponseRedirect('/')
 
 def register_user(request):
   if request.method == 'POST':
@@ -115,24 +125,13 @@ def register_success(request):
   return render_to_response('register_success.html')
 
 def wall(request):
-  return render_to_response('wall.html')
+  if User.objects.get(id=request.session.get('logged_user', False)).is_staff == 0:
+    if Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)) is not None:
+      request.session['logged_user_image'] = Applicants.objects.get(auth_id_id = request.session.get('logged_user', False)).thumbnail
+    return render_to_response('wall.html', context_instance=RequestContext(request))
+  else:
+    return render_to_response('company_wall.html', context_instance=RequestContext(request))
 
-def some_view(request):
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.pdf"'
-
-    # Create the PDF object, using the response object as its "file."
-    p = canvas.Canvas(response)
-
-    # Draw things on the PDF. Here's where the PDF generation happens.
-    # See the ReportLab documentation for the full list of functionality.
-    p.drawString(100, 100, "Hello world.")
-
-    # Close the PDF object cleanly, and we're done.
-    p.showPage()
-    p.save()
-    return response
 
 def some_view(request):
     # Create the HttpResponse object with the appropriate PDF headers.

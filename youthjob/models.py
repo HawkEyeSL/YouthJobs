@@ -3,6 +3,17 @@ from django.contrib.auth.models import User
 from time import time
 import MySQLdb
 
+TITLE_CHOICES = (
+    ('MR', 'Mr.'),
+    ('MRS', 'Mrs.'),
+    ('MS', 'Ms.'),
+)
+
+TYPE_CHOICES = (
+    ('IT', 'IT'),
+    ('BPO', 'BPO'),
+)
+
 def get_upload_file_name(instance, filename):
     return "uploaded_files/%s_%s" % (str(time()).replace('.', '_'), filename)
 
@@ -16,6 +27,7 @@ class Districts(models.Model):
 class Applicants(models.Model):
     id = models.AutoField(primary_key=True)
     auth_id = models.ForeignKey(User)
+    title = models.CharField(max_length=10, choices=TITLE_CHOICES)
     full_name = models.CharField(max_length=200)
     thumbnail = models.FileField(upload_to=get_upload_file_name)
     birth_year = models.IntegerField()
@@ -44,7 +56,7 @@ class Companies(models.Model):
     phone1 = models.CharField(max_length=200)
     phone2 = models.CharField(max_length=200)
     district = models.ForeignKey(Districts) 
-    type = models.IntegerField()
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     postal_code = models.IntegerField()
     completed = models.BooleanField(default=False)
     updated = models.DateTimeField('date updated')

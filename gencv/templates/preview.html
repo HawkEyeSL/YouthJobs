@@ -18,7 +18,7 @@
 <div id="wrap">
     <h1 align="center">Curriculum Vitae</h1>
     <div class="row-fluid">
-	    <div class="span9">{{name}}</div>
+	    <div class="span9"><h3>{{name}}</h3></div>
     </div>
     
     
@@ -76,7 +76,7 @@
         <h2>Skills/ Performance</h2>
         <div class="row-fluid">
         {% for skill in skills %}
-           <div class="span3" id="skills">{{skill}}</div>
+           <div class="span3" id="skills">{{skill.name}}</div>
         {% endfor %}
        </div>
     </div>    

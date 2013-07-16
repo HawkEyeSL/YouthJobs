@@ -1,16 +1,37 @@
-{% extends "base_site.html" %}
+{% extends "base_company.html" %}
 
-{% block maincontent %}
-<div id="wrap_outer">
+{% block content %}
+
+<style type="text/css">
+
+      .helptext{
+        display: none;
+      }
+
+      li{
+        list-style: none;
+      }
+
+      input, textarea{
+        width: 50% !important;
+      }
+
+</style>
+
     <div id="wrap">
+      <h1>Post a job</h1>
         <div class="container">	
-	        <form class="form-signin" method="post" action="/vacancies/postjob/">
-	        {% csrf_token %}
-		        <h2 class="form-signin-heading">Post a job</h2>
-	            {{form}}
-	            <button type="submit" class="btn btn-large btn-primary">Post</button>
-	        </form>
+        	{% if success %}
+			    <p style="color:green;"> Job added successfully </p>
+			{% endif %}         
+			<form method="post" action="/vacancies/postjob/">
+			{% csrf_token %}
+
+			    {{ job_form }}
+
+			    <input type="submit" value="Post job">
+			    <input type="reset" value="reset" id="reset">   
+			</form>
         </div>
     </div>
-</div>
 {% endblock %}

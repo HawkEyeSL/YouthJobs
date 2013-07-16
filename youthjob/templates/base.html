@@ -16,27 +16,7 @@
         <script src="{% static 'js/bootstrap.js' %}"></script>        
 </head>
 <body>
-    {% block menubar %}
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a href="/" class="brand">YouthJobs.lk</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li id="home" class="active"><a href="/">Home</a></li>
-              <li id="login"><a href="#loginModal" data-toggle="modal">Login</a></li>
-              <li id="login"><a href="#registerModal" data-toggle="modal">Register</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
-    </div>
-    {% endblock %}
+    {% block menubar %}{% endblock %}
 
     <!-- Begin page content -->
     {% block maincontent %}
@@ -57,8 +37,36 @@
     {% endblock %}
 
     <div id="footer">
-    {% block footer %}
-    {% endblock %}
+    
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span6 left">
+        <div class="span4 left footerinner">
+              <li class="nav-header"><a href="#"><p class="text-right">About Us</p></a></li>
+              <li class="nav-header"><a href="#"><p class="text-right">Out Story</p></a></li>
+              <li class="nav-header"><a href="#"><p class="text-right">Our Team</p></a></li>
+              <li class="nav-header"><a href="#"><p class="text-right">Contact Us</p></a></li>
+        </div>
+        <div class="span8 left footerinner">
+            <p class="muted credit">This solution is developed for<br/>helping younger generation<br/>to make their life easy by finding suitable job opportunities easily.</p>
+            <p class="muted credit">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Sed eleifend nonummy diam. Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. Suspendisse vulputate aliquam dui. Nulla elementum dui ut augue.</p>
+        </div>
+    </div>
+    <div class="span6 left">
+        <div class="span7 left footerinner"> 
+            <p class="text-right">Aliquam vehicula mi at mauris. Maecenas placerat, nisl at consequat rhoncus, sem nunc gravida justo, imperdiet vitae, tellus. Sed odio est, auctor ac, sollicitudin in, consequat vitae, orci. Fusce id felis. Vivamus sollicitudin metus eget eros.</p>
+        </div>
+        <div class="span5 left footerinner">
+              <li class="nav-header">© 2013 HawkEye Solutions.</li>
+              <li class="nav-header"><a href="http://youthjobs.lk">YouthJobs</a> and <a href="http://hawkeyesolutions.lk">HawkEye Solutions</a> are unregistered trademarks of <a href="http://hawkeyesolutions.lk">HawkEye Solutions</a>.</li>
+              <li class="nav-header"><a href="#"><p class="">Intellectual property rights policy</p></a></li>
+              <li class="nav-header"><a href="#"><p class="">Legal information</p></a></li>
+              <li class="nav-header"><a href="#"><p class="">Privacy policy</p></a></li>
+        </div>
+    </div>
+  </div>
+</div>
+
     </div>
 </body>
 </html>

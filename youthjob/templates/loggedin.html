@@ -1,4 +1,25 @@
-{% extends "base_site.html" %}
+{% extends "base.html" %}
+
+{% block menubar %}
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/wall/" class="brand">YouthJobs.lk</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav" style="float:right;">
+              <li id="user" style="border-style:solid;border-width:1px;border-color:green;"><a href="/wall/" style="color:green;"  data-toggle="modal">{{ request.session.logged_username }}</a></li>
+              <li id="logout" style="border-style:solid;border-width:1px;border-color:red;margin-left:5px;"><a href="/logout/" style="color:red;" data-toggle="modal">Logout</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
 
 {% block content %}
 
@@ -12,54 +33,19 @@
         list-style: none;
       }
 
-     .form-signin {
-        max-width: 620px;
-        padding: 19px 29px 29px;
-        margin: 20px auto 20px;
-        background-color: #87CEFA;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin input[type="text"],
-      .form-signin input[type="password"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 0px;
-      }
-
-      input[type="text"], input[type="password"]{
-        width: 100% !important;
-      }
-
-      select{
-        width: 204px !important;
+      input{
+        width: 50% !important;
       }
 
 </style>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    //$("input").attr('required', '');
-  });
-</script>
-
-<h2>Hi {{username}} , Welcome to our site. </h2>
-<p>Click <a href="/logout/">here</a> to logout.</p>
 <div class="container">	
 	<form class="form-signin" method="post" enctype="multipart/form-data" action="/loggedin/">
 	{% csrf_token %}
 		<h2 class="form-signin-heading">Please complete your profile</h2>
 	    {{form}}
+      <br />
+      <br />
 	    <button type="reset" class="btn btn-large btn-primary">Reset</button>
 	    <button type="submit" class="btn btn-large btn-primary">Save</button>
 	</form>
