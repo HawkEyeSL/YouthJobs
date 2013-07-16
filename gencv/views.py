@@ -3,7 +3,8 @@ from django.shortcuts import render_to_response
 from youthjob.models import Applicants
 from django.contrib.auth.models import User
 from orca.punctuation_settings import cube_root
-from vacancies.models import User_skills, Skill
+from vacancies.models import User_skills
+from skills.models import Skill
 
 def index(request):
     cv_details = {}
@@ -15,5 +16,8 @@ def index(request):
     cv_details['phone'] = userObj.phone
     cv_details['email'] = User.objects.get(id = request.session.get('logged_user', False)).email
     cv_details['address'] = userObj.address
-    cv_details['skills'] = skillsObjs = User_skills.objects.filter(user_id = userObj.id)
+    skillsObjs = User_skills.objects.filter(user_id = userObj.id)
+    #print(dir(skillsObjs))
+    skillsObjs2 = [ x  for x in skillsObjs ]
+    cv_details['skills'] = skillsObjs.values()
     return render_to_response('preview.html', cv_details,)
