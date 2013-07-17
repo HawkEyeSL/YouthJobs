@@ -18,7 +18,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 #lets setup password as ours(pattern: 'your_computer_name':'db_password',).
-password = { 'flame': '1', 'pipo':'1234','hope':'1','r800sh':'1',}
+password = { 'flame': '1', 'pipo':'1234','hope':'1','r800sh':'1','ubuntu':'1'}
 if socket.gethostname() in password:
     password = password[socket.gethostname()]
 else:
@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'vacancies',
     'skills',
     'gencv',
+    'match',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
