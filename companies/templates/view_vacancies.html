@@ -1,21 +1,21 @@
 {% extends "base_site.html" %}
 
 {% block content %}
+    <h3>Job vacancies of {{ name }}</h3>
     <table class="table table-bordered table-hover">
         <tr>
-            <th>Company</td>
-            <th>Address</td>
-            <th>Vacancies</td>
+            <th>Title</td>
+            <th>Description</td>
+            <th>Applicants</td>
         </tr>
-    {% for item in list %}
+    {% for vacancy in list %}
         <tr>
-            <td><a href="/companies/{{ item.id }}">{{ item.name }}</a></td>
-            <td>{{ item.address }}</td>
-            <td>{{ item.id }}</td>
+            <td><a href="/vacancies/{{ vacancy.id }}/">{{ vacancy.name }}</a></td>
+            <td>{{ vacancy.description }}</td>
+            <td><a href="#">{{ vacancy.id }}</a></td>
         </tr>
     {% endfor %}
     </table>
-
 
     {% if 1 < list.paginator.num_pages %}
     <div class="row-fluid">
@@ -45,3 +45,16 @@
     {% endif %}
 
 {% endblock %}
+
+
+<div class="pagination">
+  <ul>
+    <li><a href="#">Prev</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</div>
