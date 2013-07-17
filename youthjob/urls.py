@@ -36,6 +36,9 @@ urlpatterns = patterns('',
     #skills views
     url(r'^skills/', include('skills.urls')),
     
+    #maching algorithm views
+    url(r'^match/', include('match.urls')),
+    
     
     
     

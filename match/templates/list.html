@@ -3,15 +3,13 @@
 {% block content %}
     <table class="table table-bordered table-hover">
         <tr>
-            <th>Company</td>
-            <th>Description</td>
-            <th>Vacancies</td>
+            <th>User</td>
+            <th>Marks</td>
         </tr>
     {% for item in list %}
         <tr>
-            <td><a href="/companies/{{ item.name }}/">{{ item.name }}</a></td>
+            <td><a href="/companies/{{ item.name }}/">{{list[item] }}</a></td>
             <td>{{ item }}</td>
-            <td><a href="/vacancies/{{ item.name }}/">{{ item.id }}</a></td>
         </tr>
     {% endfor %}
     </table>

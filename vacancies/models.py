@@ -37,7 +37,7 @@ class Vacancy(models.Model):
     created = models.DateTimeField('date published')
     
 class User_skills(models.Model):
-    user_id = models.ForeignKey(Applicants) 
+    user_id = models.ForeignKey(Applicants)
     skill_id = models.ForeignKey(Skill)
     
 class Vacancy_skills(models.Model):
