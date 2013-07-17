@@ -35,4 +35,5 @@
     	<button id="applyBtn" class="btn btn-info">Apply</button>
     	<button id="successBtn" class="btn btn-success" style="display:none;">You have applied for this job</button>
     {% endif %}
+    <a href="/companies/{{ vacancy_details.company_id.id }}"><button class="btn btn-inverse">Back</button></a>
 {% endblock %}
