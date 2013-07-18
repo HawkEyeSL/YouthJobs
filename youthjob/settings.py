@@ -18,7 +18,7 @@ ADMINS = (
 MANAGERS = ADMINS
 
 #lets setup password as ours(pattern: 'your_computer_name':'db_password',).
-password = { 'flame': '1', 'pipo':'1234','hope':'1','r800sh':'1','ubuntu':'1'}
+password = { 'flame': '1', 'pipo':'1234','hope':'1','r800sh':'1',}
 if socket.gethostname() in password:
     password = password[socket.gethostname()]
 else:
@@ -65,7 +65,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = '/home/pipo/YouthJobs/youthjob/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -139,7 +139,6 @@ INSTALLED_APPS = (
     'vacancies',
     'skills',
     'gencv',
-    'match',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

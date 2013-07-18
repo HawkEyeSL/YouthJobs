@@ -6,12 +6,9 @@ from vacancies.models import Vacancy
 
 
 def list_all(request):
-    companies = []
     company_list = Companies.objects.all()
-    for company in company_list:
-        companies.append({'name': company.name, 'description': company.description, 'job_posts': Vacancy.objects.get(company_id=company.id).count()})
-    paginator = Paginator(companies, 12)  # Show 12 contacts per page
-
+    paginator = Paginator(company_list, 12) # Show 12 contacts per page
+    
     page = request.GET.get('page')
     try:
         companies = paginator.page(page)
