@@ -31,14 +31,20 @@
 {% endblock %}
 
 {% block sidepane %}
-    <ul class="nav nav-list nav-stacked">
-      <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
-      <li><a href="/skills/edit"><i class="icon-plus"></i> Add Skills</a></li>
-      <li><a href="#"><i class="icon-wrench"></i> Account Settings</a></li>
-      <li><a href="/gencv"><i class="icon-wrench"></i> CV Preview</a></li>
-      <li class="nav-header">Other Activities</li>
-      <li><a href="/companies/list"><i class="icon-globe"></i> View Companies</a></li>
-      <li><a href="#"><i class="icon-hand-right"></i>Search Vacancies</a></li>
-      <li><a href="#"><i class="icon-road"></i> Career Guidance</a></li>
-    </ul>
+  <div class="span3">
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <li class="nav-header">Main Activities</li>
+        <li class="active"><a href="/wall"><i class="icon-globe"></i>News Feed</a></li>
+        <li><a href="/profile"><i class="icon-globe"></i>My Profile</a></li>
+        <li><a href="/skills/edit"><i class="icon-globe"></i>Add Skills</a></li>
+        <li><a href="/gencv"><i class="icon-globe"></i>Resumes</a></li>
+        <li><a href="#"><i class="icon-globe"></i>Account Settings</a></li>
+        <li class="nav-header">Other Activities</li>
+        <li><a href="/companies/list"><i class="icon-globe"></i>View Companies</a></li>
+        <li><a href="#"><i class="icon-globe"></i>Search Vacancies</a></li>
+        <li><a href="#"><i class="icon-globe"></i>Career Guidance</a></li>
+      </ul>
+    </div><!--/.well -->
+  </div><!--/span-->
 {% endblock %}

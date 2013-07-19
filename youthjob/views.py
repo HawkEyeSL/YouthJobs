@@ -133,6 +133,10 @@ def wall(request):
   else:
     return render_to_response('company_wall.html', context_instance=RequestContext(request))
 
+def profile(request):
+  args = {}
+  args['applicant_details'] = Applicants.objects.get(auth_id_id=request.session.get('logged_user', False))
+  return render_to_response('profile.html', args, context_instance=RequestContext(request))
 
 def some_view(request):
     # Create the HttpResponse object with the appropriate PDF headers.

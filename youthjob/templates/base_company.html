@@ -31,11 +31,17 @@
 {% endblock %}
 
 {% block sidepane %}
-    <ul class="nav nav-list nav-stacked">
-      <li><a href="#"><i class="icon-user"></i> Company Profile</a></li>
-      <li><a href="#"><i class="icon-wrench"></i> Account Settings</a></li>
-      <li class="nav-header">Other Activities</li>
-      <li><a href="/vacancies/vacancies_list"><i class="icon-globe"></i> View Posted Jobs</a></li>
-      <li><a href="/vacancies/postjob"><i class="icon-globe"></i> Post Jobs</a></li>
-    </ul>
+  <div class="span3">
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <li class="nav-header">Main Activities</li>
+        <li class="active"><a href="/wall"><i class="icon-globe"></i>News Feed</a></li>
+        <li><a href="#"><i class="icon-globe"></i>Company Profile</a></li>
+        <li><a href="#"><i class="icon-globe"></i>Account Settings</a></li>
+        <li class="nav-header">Other Activities</li>
+        <li><a href="/vacancies/vacancies_list"><i class="icon-globe"></i> View Posted Jobs</a></li>
+        <li><a href="/vacancies/postjob"><i class="icon-globe"></i> Post Jobs</a></li>
+      </ul>
+    </div><!--/.well -->
+  </div><!--/span-->
 {% endblock %}

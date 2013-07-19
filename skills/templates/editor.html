@@ -1,24 +1,29 @@
 {% extends "base_site.html" %}
 
 {% block content %}
-<div id="skill_editor">
-    <div class="row-fluid">
-        <div class="span6">
-            <div class="input-append">
-                <h5>Type a skill you have...</h5>
-                <input id="skill_text" type="text" placeholder="Type your skill">
-                <button class="btn" type="button"><i class="icon-plus" onclick="js:addNewSkillToSystem()"></i></button>
+
+<div class="span9">
+    <div class="hero-unit">
+        <div id="skill_editor">
+            <div class="row-fluid">
+                <div class="span6">
+                    <div class="input-append">
+                        <h3>Type a skill you have...</h3>
+                        <input id="skill_text" type="text" placeholder="Type your skill">
+                        <button class="btn" type="button"><i class="icon-plus" onclick="js:addNewSkillToSystem()"></i></button>
+                    </div>
+                    <div id="skill_list">
+                    </div>
+                    <div id="save_buttons">
+                        <button class="btn" type="button">Cancel</button>
+                    </div>
+                </div>
+                <div class="span6">
+                    <div id="skill_editor_popup">
+                    </div>
+                    <br/><br/>
+                </div>
             </div>
-            <div id="skill_list">
-            </div>
-            <div id="save_buttons">
-                <button class="btn" type="button">Cancel</button>
-            </div>
-        </div>
-        <div class="span6">
-            <div id="skill_editor_popup">
-            </div>
-            <br/><br/>
         </div>
     </div>
 </div>

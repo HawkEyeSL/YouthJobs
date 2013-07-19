@@ -23,17 +23,19 @@
     });
 </script>
 
-    <h3>{{ vacancy_details.name }}</h3>
-    <p>{{ vacancy_details.description }}</p>
-
-    <br /><br />
-    <input type="hidden" name="vacancy_id" value="{{ vacancy_id }}"> 
-    <input type="hidden" name="applicant_id" value="{{ applicant_id }}"> 
-    {% if applied %}
-    	<button class="btn btn-success">You have applied for this job</button>
-    {% else %}
-    	<button id="applyBtn" class="btn btn-info">Apply</button>
-    	<button id="successBtn" class="btn btn-success" style="display:none;">You have applied for this job</button>
-    {% endif %}
-    <a href="/companies/{{ vacancy_details.company_id.id }}"><button class="btn btn-inverse">Back</button></a>
+<div class="span9">
+    <div class="hero-unit">
+        <h3>{{ vacancy_details.name }}</h3>
+        <p>{{ vacancy_details.description }}</p>
+        <input type="hidden" name="vacancy_id" value="{{ vacancy_id }}"> 
+        <input type="hidden" name="applicant_id" value="{{ applicant_id }}"> 
+        {% if applied %}
+        	<button class="btn btn-success">You have applied for this job</button>
+        {% else %}
+        	<button id="applyBtn" class="btn btn-info">Apply</button>
+        	<button id="successBtn" class="btn btn-success" style="display:none;">You have applied for this job</button>
+        {% endif %}
+        <a href="/companies/{{ vacancy_details.company_id.id }}"><button class="btn btn-inverse">Back</button></a>
+    </div>
+</div>
 {% endblock %}
