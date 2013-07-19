@@ -181,8 +181,11 @@
     function saveAllNewSkills(){
         $.ajax({
               type: "POST",
-              url: "/vacancies/addskillstouser/",
-              data: addedSkills,
+              url: "/skills/adduserskills/",
+              data: {'skills': addedSkills},
+              dataType: 'json',
+              success: function(){console.log("ajax request success")},
+              error : function(){console.log("something went wrong")},
             }).done(cancelEditingSkills);
             console.log("ajax request sent to save data");//##########
     }
@@ -196,4 +199,3 @@
 </script>
 
 {% endblock %}
-

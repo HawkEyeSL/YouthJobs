@@ -42,7 +42,7 @@ class Vacancy(models.Model):
             self.salary_ranges, self.updated, self.created)
     
 class User_skills(models.Model):
-    user_id = models.ForeignKey(Applicants) 
+    user_id = models.ForeignKey(Applicants)
     skill_id = models.ForeignKey(Skill)
     
     def __unicode__(self):
