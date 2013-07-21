@@ -11,6 +11,16 @@
         left: 45%
     }
 
+    #expModal{
+        width: 80% !important;
+        left: 30%
+    }
+
+    #projectModal{        
+        width: 80% !important;
+        left: 30%
+    }
+
     h3{
         text-align: left;
     }
@@ -20,6 +30,11 @@
     $(document).ready(function() {
         $('.nav-list li').removeClass('active');
         $('#resumes').addClass('active');
+        $('#addPorfileBtn').click(function(){
+            document.getElementById('profile_details').innerHTML = $('#txt_profile').val();
+            $('#profileModal').hide();
+            $('.modal-backdrop').hide();
+        });
 
         $('img').on({
            mouseover:function() {                 
@@ -30,8 +45,7 @@
            }
         });
 
-        $("#cv p").append('<input type="checkbox" style="float:right;" />');
-        $("#education tbody tr, #experience tr").append('<input type="checkbox" style="float:right;" />');
+        $("#education tbody tr, #experience tbody tr, #projectModal p").append('<input type="checkbox" style="float:right;" />');
         $("#skills").find("td").each(function(){
             //alert($(this).html());
             if($(this).html() != ""){ 
@@ -47,10 +61,15 @@
         //$('td:has(:checkbox:only-child)').css({backgroundColor: 'green'});
 
         $("#addEduBtn").click(function(){
-            alert('clicked');
             $("#eduModal tbody").find("tr").each(function(i){
-                alert(i);
+                alert($(this));
             });
+
+            document.getElementById('edu_details').innerHTML = '<table id="education" class="table table-condensed"><thead><tr>' +
+                        '<th>Year</th><th>Educational Establishment</th><th>Qualification</th><th>Result</th></tr></thead><tbody>' +
+                        '<tr><td>2007-2009</td><td>Edinburgh Napier University</td><td>MSc Advanced Software Engineering</td><td>pass</td>' +
+                        '</tr><tr><td>2005-2007</td><td>Edinburgh Napier University</td><td>BSc (Hons) Software Technology</td>' +
+                        '<td>2:1</td></tr></tbody></table>';
         });
     });
 </script>
@@ -105,6 +124,9 @@
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
+            <div class="hero-unit">
+                <p id="profile_details">Add your profile here...</p>
+            </div>
 
 <!-- eduModal -->
 <div id="profileModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -113,7 +135,7 @@
             <h3 id="myModalLabel">Add Profile</h3>
         </div>
         <div class="modal-body">
-            <textarea style="width:97%; height:200px;">I am a hard working highly motivated open source developer with proven skills in software design and development. I enjoy working within a team and providing a technical lead. With a wide range of skills in web development I have worked in a number of different projects with small start-ups to traditional well established companies. I am interested in finding new challenges and interesting positions where I can develop innovating and successful solutions. I also enjoy a highly active social life, skiing and travelling when I get a chance.</textarea>
+            <textarea id="txt_profile" style="width:97%; height:200px;">I am a hard working highly motivated open source developer with proven skills in software design and development. I enjoy working within a team and providing a technical lead. With a wide range of skills in web development I have worked in a number of different projects with small start-ups to traditional well established companies. I am interested in finding new challenges and interesting positions where I can develop innovating and successful solutions. I also enjoy a highly active social life, skiing and travelling when I get a chance.</textarea>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -127,6 +149,9 @@
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
+            <div class="hero-unit" id="edu_details">
+                <p>Add your education details here...</p>
+            </div>
 
 <!-- eduModal -->
 <div id="eduModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -145,18 +170,18 @@
                     </tr>
                 </thead>                
                 <tbody>
-                <tr>
-                    <td>2007-2009</td>
-                    <td>Edinburgh Napier University</td>
-                    <td>MSc Advanced Software Engineering</td>
-                    <td>pass</td>
-                </tr>
-                <tr>
-                    <td>2005-2007</td>
-                    <td>Edinburgh Napier University</td>
-                    <td>BSc (Hons) Software Technology</td>
-                    <td>2:1</td>
-                </tr>
+                    <tr>
+                        <td>2007-2009</td>
+                        <td>Edinburgh Napier University</td>
+                        <td>MSc Advanced Software Engineering</td>
+                        <td>pass</td>
+                    </tr>
+                    <tr>
+                        <td>2005-2007</td>
+                        <td>Edinburgh Napier University</td>
+                        <td>BSc (Hons) Software Technology</td>
+                        <td>2:1</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -170,13 +195,16 @@
                 <a data-toggle="modal" style="color:#0088CC;" href="#projectModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
-            </h3>
+            </h3>                       
+            <div class="hero-unit">
+                <p id="project_details">Add project details here...</p>
+            </div>
 
 <!-- projectModal -->
 <div id="projectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3 id="myModalLabel">Add Projects Details</h3>
+            <h3 id="myModalLabel">Add Projects Details</h3> 
         </div>
         <div class="modal-body">
             <p>For my Masters dissertation I worked on machine learning and successfully
@@ -221,7 +249,10 @@
                 <a data-toggle="modal" style="color:#0088CC;" href="#expModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
-            </h3>
+            </h3>           
+            <div class="hero-unit">
+                <p id="exp_details">Add your experiences here...</p>
+            </div>
 
 <!-- expModal -->
 <div id="expModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -231,108 +262,110 @@
         </div>
         <div class="modal-body">
             <table id="experience">
-                <tbody><tr>
-                    <th style="width:14%">Date</th>
-                    <th style="width:15%">Company</th>
-                    <th style="width:71%">Duties Description</th>
-                </tr>
-                <tr>
-                    <td>Feb 12 - Present</td>
-                    <td>Root Creative</td>
-                    <td>
-                        At Root Creative I am responsible for creating the technical
-                        design and implementation of a number of iPhone (ObjectiveC) and
-                        Android (Java) with a Python backend system. Essentially the work
-                        is to create a CMS backed iPhone and Android app but rather than
-                        a typical website the work spans over a number of very different
-                        and interesting platforms. <br><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nov 11 - Jan 12</td>
-                    <td>ALISS - long term alliance scotland</td>
-                    <td>
-                        Work with Django, Python, MongoDb, Redis, Solr and other related
-                        projects for ALISS project - an Scottish NHS backed project. I
-                        worked across most areas in this project and added both an
-                        analytics framework and a notification framework to be used as
-                        the service scales in the future. <br><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Oct 11 - Jan 12</td>
-                    <td>QueryClick</td>
-                    <td>
-                        Python development working a high throughput web scraper utilising
-                        Amazon Web Services, Tor and complex threading and concurrency
-                        processes.<br><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>May 11 - Oct 11</td>
-                    <td>Pitchup</td>
-                    <td>
-                        Python development of the leading Campsite website in the UK. I
-                        joined PitchUp to help add a number of key features for the 2011
-                        summer season while helping with scalability problems and issues.
-                        <br><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>09/2010 - 07/2011</td>
-                    <td>Aviva plc</td>
-                    <td>
-                        Django and Python development working on a number of Aviva's
-                        websites front facing high profile websites including
-                        www.rac.co.uk. I was involved in a number of large projects and
-                        led development of the highest traffic and most visible website
-                        under Aviva's control at the time; www.rac.co.uk.<br><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Sept 09 - Sept 10</td>
-                    <td>Loopo Ltd</td>
-                    <td>
-                        Django and Python development working on Zinc Medical Recruitment,
-                        A medical trainee recruitment system used by  medical schools and
-                        colleges in England and Wales. This highly complicated Django
-                        project handled applications from thousands of students in a very
-                        short window of very complicated dynamically generated and
-                        modified forms.<br><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Nov 09 - Dec 09</td>
-                    <td>Aware Monitoring</td>
-                    <td>
-                        Development working on awaremonitoring.com for Viisys Ltd. The
-                        work involved Python, Django, RabbitMQ, Celery, jQuery, mySQL. I
-                        was involved in creating an initial version of their distributed
-                        speed monitoring services.<br><br>
-                    </td>
-                </tr>  
-            </tbody>
-        </table>
+                <thead>
+                    <tr>
+                        <th style="width:14%">Date</th>
+                        <th style="width:15%">Company</th>
+                        <th style="width:71%">Duties Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Feb 12 - Present</td>
+                        <td>Root Creative</td>
+                        <td>
+                            At Root Creative I am responsible for creating the technical
+                            design and implementation of a number of iPhone (ObjectiveC) and
+                            Android (Java) with a Python backend system. Essentially the work
+                            is to create a CMS backed iPhone and Android app but rather than
+                            a typical website the work spans over a number of very different
+                            and interesting platforms. <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nov 11 - Jan 12</td>
+                        <td>ALISS - long term alliance scotland</td>
+                        <td>
+                            Work with Django, Python, MongoDb, Redis, Solr and other related
+                            projects for ALISS project - an Scottish NHS backed project. I
+                            worked across most areas in this project and added both an
+                            analytics framework and a notification framework to be used as
+                            the service scales in the future. <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Oct 11 - Jan 12</td>
+                        <td>QueryClick</td>
+                        <td>
+                            Python development working a high throughput web scraper utilising
+                            Amazon Web Services, Tor and complex threading and concurrency
+                            processes.<br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>May 11 - Oct 11</td>
+                        <td>Pitchup</td>
+                        <td>
+                            Python development of the leading Campsite website in the UK. I
+                            joined PitchUp to help add a number of key features for the 2011
+                            summer season while helping with scalability problems and issues.
+                            <br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>09/2010 - 07/2011</td>
+                        <td>Aviva plc</td>
+                        <td>
+                            Django and Python development working on a number of Aviva's
+                            websites front facing high profile websites including
+                            www.rac.co.uk. I was involved in a number of large projects and
+                            led development of the highest traffic and most visible website
+                            under Aviva's control at the time; www.rac.co.uk.<br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sept 09 - Sept 10</td>
+                        <td>Loopo Ltd</td>
+                        <td>
+                            Django and Python development working on Zinc Medical Recruitment,
+                            A medical trainee recruitment system used by  medical schools and
+                            colleges in England and Wales. This highly complicated Django
+                            project handled applications from thousands of students in a very
+                            short window of very complicated dynamically generated and
+                            modified forms.<br><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Nov 09 - Dec 09</td>
+                        <td>Aware Monitoring</td>
+                        <td>
+                            Development working on awaremonitoring.com for Viisys Ltd. The
+                            work involved Python, Django, RabbitMQ, Celery, jQuery, mySQL. I
+                            was involved in creating an initial version of their distributed
+                            speed monitoring services.<br><br>
+                        </td>
+                    </tr>  
+                </tbody>
+            </table>
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
             <button id="addExpBtn" class="btn btn-primary">Add</button>
         </div>  
 </div>
-            
-            <h3>References and Recommendations
-                <a data-toggle="modal" style="color:#0088CC;" href="#refModal">
-                    <img src="/static/images/button-add.png" width="50" />
-                </a>
-            </h3>
 
             <h3>Extra Curriculum Activities
                 <a data-toggle="modal" style="color:#0088CC;" href="#extModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
+            
+            <h3>References and Recommendations
+                <a data-toggle="modal" style="color:#0088CC;" href="#refModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
         </div>
     </div>
-    <button id="genPdf">Gen PDF</button>
 </div>
     {% endblock %}

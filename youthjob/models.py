@@ -66,6 +66,37 @@ class Companies(models.Model):
         return u'%s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.auth_id, self.name, self.address, self.company_reg_no, 
             self.phone1, self.phone2, self.district, self.type, self.postal_code, self.completed, self.updated, self.created)
 
+class Experience(models.Model):
+    id = models.AutoField(primary_key=True)
+    applicant_id = models.ForeignKey(Applicants)
+    from_date = models.CharField(max_length=200)
+    to_date = models.CharField(max_length=200)
+    company = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return u'%s %s %s %s %s' % (self.id, self.applicant_id, self.from_date, self.to_date, self.company, self.description)
+
+class Extra_Curriculum_Activity(models.Model):
+    id = models.AutoField(primary_key=True)
+    applicant_id = models.ForeignKey(Applicants)
+    type = models.IntegerField()
+    description = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return u'%s %s %s %s %s' % (self.id, self.applicant_id, self.type, self.description)
+
+class Education(models.Model):
+    id = models.AutoField(primary_key=True)
+    applicant_id = models.ForeignKey(Applicants)
+    year = models.CharField(max_length=200)
+    institute = models.CharField(max_length=200)
+    description = models.CharField(max_length=200)
+    result = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return u'%s %s %s %s %s' % (self.id, self.applicant_id, self.from_date, self.to_date, self.company, self.description)
+
 class User_verifications(models.Model):
     id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(User)
