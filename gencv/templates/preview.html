@@ -2,15 +2,36 @@
 
 {% block content %}
 
-
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/screen.css' %}" />
 
+<style type="text/css">
+    #eduModal{
+        width: auto !important;
+        left: 45%
+    }
+
+    h3{
+        text-align: left;
+    }
+</style>
+
 <script type="text/javascript">    
     $(document).ready(function() {
+        $('.nav-list li').removeClass('active');
+        $('#resumes').addClass('active');
+
+        $('img').on({
+           mouseover:function() {                 
+               $(this).css('opacity','0.4');  
+           },
+           mouseout: function(){       
+               $(this).css('opacity','1'); 
+           }
+        });
+
         $("#cv p").append('<input type="checkbox" style="float:right;" />');
-        $("#education tr, #experience tr").append('<input type="checkbox" style="float:right;" />');
-        $("#basic tr").append('<input type="checkbox" style="float:right;" />');
+        $("#education tbody tr, #experience tr").append('<input type="checkbox" style="float:right;" />');
         $("#skills").find("td").each(function(){
             //alert($(this).html());
             if($(this).html() != ""){ 
@@ -24,53 +45,106 @@
             }
         });
         //$('td:has(:checkbox:only-child)').css({backgroundColor: 'green'});
+
+        $("#addEduBtn").click(function(){
+            alert('clicked');
+            $("#eduModal tbody").find("tr").each(function(i){
+                alert(i);
+            });
+        });
     });
 </script>
 
 <div class="span9">
-  <div class="hero-unit">
     <div class="span-22 prepend-top">
         <div class="span-21 box">
             <h2 align="center">Curriculum Vitae</h2>
         </div>
 
         <div id="cv">
+          <div style="width:100%">
+            <div style="float:right;">
+                <img src="/static/{{ thumbnail }}" style="float:right;width:175px;margin-bottom:30px;" class="img-polaroid">
+            </div>
             <h2>{{ name }}</h2>
-            <table id="basic">
-                <tbody>
-                <tr>
-                    <td><b>Phone</b></td>
-                    <td>{{ phone }}</td>
-                </tr>
-                <tr>
-                    <td><b>Website</b></td>
-                    <td>www.dougalmatthews.com</td>
-                </tr>
-                <tr>
-                    <td><b>Email</b></td>
-                    <td>{{ email }}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="float:left; width:80%;">
+                <table id="basic">
+                    <tbody>
+                        <tr>
+                            <td><b>Date of Birth</b></td>
+                            <td>{{ dateOfBirth }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Gender</b></td>
+                            {% if gender == 1 %}
+                                <td>Male</td>
+                            {% else %}
+                                <td>Female</td>
+                            {% endif %}
+                        </tr>
+                        <tr>
+                            <td><b>Address</b></td>
+                            <td>{{ address }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Phone</b></td>
+                            <td>{{ phone }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Email</b></td>
+                            <td>{{ email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-            <p>I am a hard working highly motivated open source developer with proven skills
-                in software design and development. I enjoy working within a team and
-                providing a technical lead. With a wide range of skills in web development I
-                have worked in a number of different projects with small start-ups to
-                traditional well established companies. I am interested in finding new
-                challenges and interesting positions where I can develop innovating and
-                successful solutions. I also enjoy a highly active social life, skiing and
-                travelling when I get a chance.</p>
+            <h3>
+                Profile
+                <a data-toggle="modal" style="color:#0088CC;" href="#profileModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
 
-            <h3>Education</h3>
+<!-- eduModal -->
+<div id="profileModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add Profile</h3>
+        </div>
+        <div class="modal-body">
+            <textarea style="width:97%; height:200px;">I am a hard working highly motivated open source developer with proven skills in software design and development. I enjoy working within a team and providing a technical lead. With a wide range of skills in web development I have worked in a number of different projects with small start-ups to traditional well established companies. I am interested in finding new challenges and interesting positions where I can develop innovating and successful solutions. I also enjoy a highly active social life, skiing and travelling when I get a chance.</textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id="addPorfileBtn" class="btn btn-primary">Add</button>
+        </div>  
+</div>            
+
+            <h3>
+                Education
+                <a data-toggle="modal" style="color:#0088CC;" href="#eduModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
+
+<!-- eduModal -->
+<div id="eduModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add Education Details</h3>
+        </div>
+        <div class="modal-body">
             <table id="education">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Educational Establishment</th>
+                        <th>Qualification</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>                
                 <tbody>
-                <tr>
-                    <th>Year</th>
-                    <th>Educational Establishment</th>
-                    <th>Qualification</th>
-                    <th>Result</th>
-                </tr>
                 <tr>
                     <td>2007-2009</td>
                     <td>Edinburgh Napier University</td>
@@ -85,8 +159,26 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id="addEduBtn" class="btn btn-primary">Add</button>
+        </div>  
+</div>
 
-            <h3>Notable Academic Projects and Open Source</h3>
+            <h3>Notable Academic Projects
+                <a data-toggle="modal" style="color:#0088CC;" href="#projectModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
+
+<!-- projectModal -->
+<div id="projectModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add Projects Details</h3>
+        </div>
+        <div class="modal-body">
             <p>For my Masters dissertation I worked on machine learning and successfully
             created a learning system that was able to improve its performance at playing
             the board game Mancala over time. The study compared implementations using
@@ -103,69 +195,41 @@
             my own open projects, many of these are visible of my GitHub account. I try to
             make an open source contribution each day, my progress can be tracked at
             www.calendaraboutnothing.com/~d0ugal</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id="addProjectBtn" class="btn btn-primary">Add</button>
+        </div>  
+</div>            
 
-            <h3>Key Skills</h3>
-            <table id="skills">
-                <tbody><tr>
-                    <th>Languages/Markup</th>
-                    <th>Database Systems</th>
-                    <th>Technologies/Frameworks</th>
-                </tr>
-                <tr>
-                    <td>Python (4 years)</td>
-                    <td>PostgreSQL (3.5 years)</td>
-                    <td>Django (3.5 years)</td>
-                </tr>
-                <tr>
-                    <td>JavaScript (5 years)</td>
-                    <td>mySQL (4 years)</td>
-                    <td>SQLAlchemy (2 years)</td>
-                </tr>
-                <tr>
-                    <td>Java (1 year)</td>
-                    <td>MongoDb (1 year)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>ObjectiveC (1 year)</td>
-                    <td>Redis (1 year)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>PHP (5 years)</td>
-                    <td>Solr (1 year)</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>XHTML, XML and CSS (8 years)</td>
-                </tr>
-            </tbody></table>
+            <h3>Key Skills
+                <a data-toggle="modal" style="color:#0088CC;" href="#skillModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
 
-            <h3>Conferences and Training</h3>
-            <table id="training">
-                <tbody><tr>
-                    <td>EuroPython 2011 (Florence, IT)</td>
-                    <td>EuroPython 2009 (Birmingham, UK)</td>
-                </tr>
-                <tr>
-                    <td>EuroPython 2010 (Birmingham, UK)</td>
-                    <td>EuroDjangoCon 2009 (Prague, CZ)</td>
-                </tr>
-                <tr>
-                    <td>DjangoCon.eu 2010 (Berlin, DE)</td>
-                    <td>Microsoft Visual Studio Conference 2005 (Edinburgh, UK)</td>
-                </tr>
-            </tbody></table>
+            <div class="row-fluid">
+                <div class="row-fluid">
+                {% for skill in skills %}
+                   <div id="skills">{{skill.name}}</div>
+                {% endfor %}
+               </div>
+            </div> 
 
-            <h3>Community Involvement</h3>
-            <p>I co-founded the Python Edinburgh user group in Edinburgh which has been
-            running for over two years now. With the group I have also successfully
-            organised a number of small events including talks and coding sprints. I also
-            try to attend and get involved with any user groups in the local area.</p>
-            <h3>Experience</h3>
-            <p>Working as a independent contractor and consultant I have been fortunate
-            enough to work on a number of different projects for a very wide range of
-            clients. Following is a list of some of the key projects.</p>
+            <h3>
+                Experience
+                <a data-toggle="modal" style="color:#0088CC;" href="#expModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
+
+<!-- expModal -->
+<div id="expModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add Experience Details</h3>
+        </div>
+        <div class="modal-body">
             <table id="experience">
                 <tbody><tr>
                     <th style="width:14%">Date</th>
@@ -246,137 +310,29 @@
                         was involved in creating an initial version of their distributed
                         speed monitoring services.<br><br>
                     </td>
-                </tr>
-
-            <tr>
-                    <td>Feb 09 - Sept 09</td>
-                    <td>Mobilis Performance</td>
-                    <td>
-                        Django and Python development of an online self diagnosis
-                        physiotherapist startup. Implementing a complex self help system
-                        with demonstration videos, history tracking and advice.<br><br>
-                    </td>
-                </tr>
-
-            <tr>
-                    <td>Jan 09 - May 09</td>
-                    <td>Landmarts</td>
-                    <td>
-                        Python (Django) development for an startup property and land
-                        website that aimed to revolutionise the property market. The
-                        website included implementations of various unique features in
-                        this market area. Featuring a very sophisticated backend and a
-                        dynamic front end with a rich JavaScript interface.<br><br>
-                    </td>
-                </tr>
-
-            <tr>
-                    <td>Feb 08 - Sept 08</td>
-                    <td>XCalibre Communications</td>
-                    <td>I joined XCalibre to join their development team doing Java and
-                        PHP development. I worked on the internals of their successful
-                        Flexiscale cloud platform and customer control panel - used both
-                        for Flexiscale and traditional hosting.<br><br>
-                    </td>
-                </tr>
-
-            <tr>
-                    <td>Aug 07 - Jan 08</td>
-                    <td>1576 Advertising</td>
-                    <td>Working for 1576 I was involved in making a number of websites for
-                        local companies in and around Edinburgh. One of the larger sites
-                        involved me undertaking the full design and implementation of a
-                        bespoke website used by the Hunters Estate agents
-                        (www.hunters-residential.co.uk).<br><br>
-                    </td>
-                </tr>
-
-            <tr>
-                    <td>May 07 - Aug 07</td>
-                    <td>Zero Design Ltd.</td>
-                    <td>
-                        Object Oriented Training - I was brought in to Zero design after
-                        doing development work for them to provide training and help some
-                        of their staff to understand and use Object Oriented techniques.
-                        This centred around using the different object models in PHP and
-                        JavaScript.<br><br>
-                    </td>
-                </tr>
-
-            </tbody></table>
-
-            <h3>References and Recommendations</h3>
-            <p>Written and verbal references and recommendations are available on request. A
-            number can also be viewed on my LinkedIn profile. www.linkedin.com/in/d0ugal</p>
+                </tr>  
+            </tbody>
+        </table>
         </div>
-    </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button id="addExpBtn" class="btn btn-primary">Add</button>
+        </div>  
 </div>
+            
+            <h3>References and Recommendations
+                <a data-toggle="modal" style="color:#0088CC;" href="#refModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
 
-    <!--
-    <h1 align="center">Curriculum Vitae</h1>
-    <div class="row-fluid">
-	    <div class="span9"><h3>{{name}}</h3></div>
-    </div>
-    
-    
-    <div class="row-fluid">
-    	<div class="span3" id="profilepic">
-    		<img src="/static/{{thumbnail}}" width="200px" />
-    	</div>
-    	<div class="span6">
-	    	<div class="row-fluid">
-	    		<div class="row-fluid">
-	        		<div class="span4">Date of Birth</div>
-	        		<div class="span4">{{b_day}}</div>
-	        	</div>
-	     		<div class="row-fluid">
-	 		       	<div class="span4">Contact No.</div>
-	 		       	<div class="span4">{{phone}}</div>
-	 		    </div>
-	    		<div class="row-fluid">
-		        	<div class="span4">E-Mail Address</div>
-		        	<div class="span4">{{email}}</div>
-		        </div>
-	     		<div class="row-fluid">
-	 		       	<div class="span4">Address</div>
-	 		       	<div class="span4">{{address}}</div>
-	 		    </div>
-	        </div>
+            <h3>Extra Curriculum Activities
+                <a data-toggle="modal" style="color:#0088CC;" href="#extModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
         </div>
     </div>
-    
-    
-    <div class="row-fluid">
-        <h2>Profile</h2>
-        <div class="row-fluid">Profile Suggestions</div>
-    </div>
-    
-    
-    <div class="row-fluid">
-        <h2>Educational Background</h2>
-        <div class="row-fluid">Qualification 1- Eg: 8A's for GCE O/L's in 1993 at Ananda College,Colombo 10.    >></div>
-        <div class="row-fluid">Qualification 2- Eg: 3A's for GCE A/L's in 1996 at Ananda College,Colombo 10.     >></div>
-        <div class="row-fluid">Qualification 3- >></div>
-        <div class="row-fluid">Qualification 4- >></div>
-    </div>
-    
-    
-    <div class="row-fluid">
-        <h2>Work Background</h2>
-        <div class="row-fluid">Qualification 1- Eg: Intern at Virtusa 2007- 2010.    </div>
-        <div class="row-fluid">Qualification 2- >></div>
-        <div class="row-fluid">Qualification 3- >></div>
-    </div>
-    
-    
-    <div class="row-fluid">
-        <h2>Skills/ Performance</h2>
-        <div class="row-fluid">
-        {% for skill in skills %}
-           <div class="span3" id="skills">{{skill.name}}</div>
-        {% endfor %}
-       </div>
-    </div> 
-    -->   
+    <button id="genPdf">Gen PDF</button>
 </div>
     {% endblock %}

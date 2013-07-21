@@ -10,6 +10,7 @@ from django.utils import timezone, simplejson
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from django.template import RequestContext
+import datetime
 
 def index(request):
   c = {}
@@ -135,7 +136,8 @@ def wall(request):
 
 def profile(request):
   args = {}
-  args['applicant_details'] = Applicants.objects.get(auth_id_id=request.session.get('logged_user', False))
+  args['applicant_details'] = applicantObj = Applicants.objects.get(auth_id_id=request.session.get('logged_user', False))
+  args['dateOfBirth'] = datetime.date(applicantObj.birth_year, applicantObj.birth_month, applicantObj.birth_day)
   return render_to_response('profile.html', args, context_instance=RequestContext(request))
 
 def some_view(request):

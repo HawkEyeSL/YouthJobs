@@ -1,11 +1,63 @@
 {% extends "base_site.html" %}
 
 {% block content %}
+
+<script type="text/javascript">
+    $(document).ready(function() {    	
+        $('.nav-list li').removeClass('active');
+        $('#myprofile').addClass('active');
+
+		$('img').on({
+	       mouseover:function() {                 
+	           $(this).css('opacity','0.4');  
+	       },
+	       mouseout: function(){       
+	           $(this).css('opacity','1'); 
+	       }
+	   	});
+	});
+</script>
+
 <div class="span9">
   <div class="hero-unit">
-    <img src="/static/{{ applicant_details.thumbnail }}" class="img-polaroid">
-    <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p><a class="btn btn-primary btn-large" href="#">Learn more »</a></p>
+  	<h3>Basic Details
+  		<a id="basicDetails" data-toggle="modal" style="color:#0088CC;" href="#basicDetailsModal">
+  			<img id="editBasicsBtn" src="/static/images/edit_icon.png" width="35" />
+  		</a>
+  	</h3>
+    <img src="/static/{{ applicant_details.thumbnail }}" class="img-polaroid" style="float:left; margin-right:20px; width:150px;">
+    <p>{{ applicant_details.full_name }}</p>
+    <p>{{ dateOfBirth }}</p>
+    {% if applicant_details.gender == 1 %}
+    	<p>Male</p>
+    {% else %}
+    	<p>Male</p>
+    {% endif %}
+    <p>{{ applicant_details.phone }}</p>
+  </div>
+
+  <div class="hero-unit">
+  	<h3>Educational Details
+  		<a id="eduDetails" data-toggle="modal" style="color:#0088CC;" href="#eduDetailsModal">
+  			<img id="editEduBtn" src="/static/images/edit_icon.png" width="35" />
+  		</a>
+  	</h3>
+  </div>
+
+  <div class="hero-unit">
+  	<h3>Working Experience Details
+  		<a id="eduDetails" data-toggle="modal" style="color:#0088CC;" href="#eduDetailsModal">
+  			<img id="editEduBtn" src="/static/images/edit_icon.png" width="35" />
+  		</a>
+  	</h3>
+  </div>
+
+  <div class="hero-unit">
+  	<h3>Extra Curriculum Details
+  		<a id="eduDetails" data-toggle="modal" style="color:#0088CC;" href="#eduDetailsModal">
+  			<img id="editEduBtn" src="/static/images/edit_icon.png" width="35" />
+  		</a>
+  	</h3>
   </div>
 </div><!--/span-->
 {% endblock %}

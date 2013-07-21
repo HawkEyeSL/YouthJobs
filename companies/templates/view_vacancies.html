@@ -1,6 +1,14 @@
 {% extends "base_site.html" %}
 
 {% block content %}
+
+<script type="text/javascript">    
+    $(document).ready(function() {
+        $('.nav-list li').removeClass('active');
+        $('#viewcom').addClass('active');
+    });
+</script>
+
 <div class="span9">
     <div class="hero-unit">
         <h3>Job vacancies of {{ name }}</h3>
