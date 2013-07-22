@@ -72,7 +72,7 @@
            }
         });
 
-        $("#education tbody tr, #experience tbody tr, #projectModal p").append('<input type="checkbox" style="float:right;" />');
+        $("#education tbody tr, #experience tbody tr, #projectModal tbody tr").append('<input type="checkbox" style="float:right;" />');
         $("#skills").find("td").each(function(){
             //alert($(this).html());
             if($(this).html() != ""){ 
@@ -88,60 +88,55 @@
         //$('td:has(:checkbox:only-child)').css({backgroundColor: 'green'});
 
         $("#addEduBtn").click(function(){
-            $("#eduModal tbody").find("tr").each(function(i){
-                //alert($(this));
+            var edu_details = "";
+            $("#eduModal tbody input[type='checkbox']:checked").each(function(i){
+                var td_details = "";
+                $(this).parent().find('td').each(function(){
+                    td_details += "<td>" + $(this).html() + "</td>";
+                });                
+                edu_details += "<tr>" + td_details + "</tr>";
             });
+
+            //alert(edu_details);
 
             document.getElementById('edu_details').innerHTML = '<table id="education" class="table table-condensed"><thead><tr>' +
                         '<th>Year</th><th>Educational Establishment</th><th>Qualification</th><th>Result</th></tr></thead><tbody>' +
-                        '<tr><td>2007-2009</td><td>Edinburgh Napier University</td><td>MSc Advanced Software Engineering</td><td>pass</td>' +
-                        '</tr><tr><td>2005-2007</td><td>Edinburgh Napier University</td><td>BSc (Hons) Software Technology</td>' +
-                        '<td>2:1</td></tr></tbody></table>';
+                        edu_details + '</tbody></table>';
 
             $('#eduModal').hide();
             $('.modal-backdrop').hide();
         });
 
         $("#addProjectBtn").click(function(){
-            $("#projectModal tbody").find("tr").each(function(i){
-                //alert($(this));
+            var pro_details = "";
+            $("#projectModal tbody input[type='checkbox']:checked").each(function(i){
+                var td_details = "";
+                $(this).parent().find('td').each(function(){
+                    td_details += "<td>" + $(this).html() + "</td>";
+                });                
+                pro_details += "<tr>" + td_details + "</tr>";
             });
 
             document.getElementById('project_details').innerHTML = '<table id="education" class="table table-condensed"><thead><tr>' +
-                        '<th style="width:20%;">Title</th><th>Description</th></tr></thead><tbody><tr><td style="width:20%;">' +
-                        'Learning system</td><td>created a learning system that was able to improve its performance' +
-                        'at playing the board game Mancala over time. The study compared implementations using MiniMax, Evolutionary' + 
-                        'Algorithms, Neural Networks and Ant Colony Optimisation. This project was written fully in Python and made use of' +
-                        'concurrency and distributed programming to improve performance.</td></tr><tr><td style="width:20%;">Interface for' +
-                        ' phpMyAdmin</td><td>In my undergraduate project I created an interface for phpMyAdmin, a highly popular open source' +
-                        'database management system written in PHP. This project was one of the earlier and cutting edge examples of using' +
-                        'JavaScript to create dynamic and engaging interfaces. It was featured on websites such as ajaxian.com</td></tr>' +
-                        '</tbody></table>';
+                        '<th style="width:20%;">Title</th><th>Description</th></tr></thead><tbody>' + pro_details + '</tbody></table>';
 
             $('#projectModal').hide();
             $('.modal-backdrop').hide();
         });
 
         $("#addExpBtn").click(function(){
-            $("#expModal tbody").find("tr").each(function(i){
-                //alert($(this));
+            var exp_details = "";
+            $("#expModal tbody input[type='checkbox']:checked").each(function(i){
+                var td_details = "";
+                $(this).parent().find('td').each(function(){
+                    td_details += "<td>" + $(this).html() + "</td>";
+                });                
+                exp_details += "<tr>" + td_details + "</tr>";
             });
 
-            document.getElementById('exp_details').innerHTML = '<table id="experience" class="table table-condensed"><tbody><tr>' +
+            document.getElementById('exp_details').innerHTML = '<table id="experience" class="table table-condensed"><thead><tr>' +
                         '<th style="width:20%">Date</th><th style="width:20%">Company</th><th style="width:60%">Duties Description</th>' +
-                        '</tr><tr><td>Feb 12 - Present</td><td>Root Creative</td><td>At Root Creative I am ' +
-                        'responsible for creating the technical design and implementation of a number of iPhone (ObjectiveC) and ' +
-                        'Android (Java) with a Python backend system. Essentially the work is to create a CMS backed iPhone and Android' +
-                        'app but rather than a typical website the work spans over a number of very different and interesting platforms.' +
-                        '</td></tr><tr>' +
-                        '<td>May 11 - Oct 11</td><td>Pitchup</td><td>Python development of the leading Campsite website in the UK. ' +
-                        'I joined PitchUp to help add a number of key features for the 2011 summer season while helping with scalability ' +
-                        'problems and issues.</td></tr><tr>' +
-                        '<td>09/2010 - 07/2011</td><td>Aviva plc</td><td>Django and Python development working on a number of Aviva\'s' +
-                        'websites front facing high profile websites including www.rac.co.uk. I was involved in a number of large projects ' +
-                        'and led development of the highest traffic and most visible website under Aviva\'s control at the ' +
-                        'time; www.rac.co.uk.</td></tr>'
-                        '</tbody></table>';
+                        '</tr></thead>' + exp_details + '<tbody></tbody></table>';
 
             $('#expModal').hide();
             $('.modal-backdrop').hide();
