@@ -59,8 +59,10 @@ def vacancies_list(request):
   logged_user_id = request.session.get('logged_user', False)
   companyObj = Companies.objects.get(auth_id_id=logged_user_id)
   vacancy_list = Vacancy.objects.filter(company_id=companyObj.id)
+
   for vacancy in vacancy_list:
     setattr(vacancy, 'no_of_applicants', Vacancy_applicants.objects.filter(vacancy_id=vacancy.id).count())
+    
   paginator = Paginator(vacancy_list, 12) # Show 12 contacts per page
   page = request.GET.get('page')
   try:
@@ -94,16 +96,16 @@ def apply(request):
   data['success'] = True
   return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
-def view_applicants(request, vacancy_id):
-    args = {}
-    page = request.GET.get('page')
-    try:
-        vacancies = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        vacancies = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        vacancies = paginator.page(paginator.num_pages)
-    args['list'] = vacancies
-    return render_to_response('view_applicants.html', args, context_instance=RequestContext(request))
+# def view_applicants(request, vacancy_id):
+#     args = {}
+#     page = request.GET.get('page')
+#     try:
+#         vacancies = paginator.page(page)
+#     except PageNotAnInteger:
+#         # If page is not an integer, deliver first page.
+#         vacancies = paginator.page(1)
+#     except EmptyPage:
+#         # If page is out of range (e.g. 9999), deliver last page of results.
+#         vacancies = paginator.page(paginator.num_pages)
+#     args['list'] = vacancies
+#     return render_to_response('view_applicants.html', args, context_instance=RequestContext(request))

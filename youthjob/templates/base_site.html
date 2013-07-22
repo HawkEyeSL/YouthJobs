@@ -18,11 +18,13 @@
           <div class="nav-collapse collapse">
             <ul class="nav" style="float:right;">
               {% if request.session.logged_user_image %}
-                <li id="user_image"><img src="/static/{{ request.session.logged_user_image }}" alt="Profile Picture" /></li>
+                <li id="user_image">
+                  <img src="/static/{{ request.session.logged_user_image }}" alt="Profile Picture" />
+                </li>
               {% endif %}
 
-              <li id="user" style="border-style:solid;border-width:1px;border-color:green;"><a href="/wall/" style="color:green;"  data-toggle="modal">{{ request.session.logged_username }}</a></li>
-              <li id="logout" style="border-style:solid;border-width:1px;border-color:red;margin-left:5px;"><a href="/logout/" style="color:red;" data-toggle="modal">Logout</a></li>
+              <li id="user"><a href="/wall/" style="color:green;"  data-toggle="modal">{{ request.session.logged_username }}</a></li>
+              <li id="logout"><a href="/logout/" style="color:red;" data-toggle="modal">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

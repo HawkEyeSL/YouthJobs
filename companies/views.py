@@ -27,7 +27,19 @@ def view_companies(request, company_id):
     args = {}
     args['name'] = Companies.objects.get(id=company_id).name
     vacancy_list = Vacancy.objects.filter(company_id=company_id)
-    paginator = Paginator(vacancy_list, 12) # Show 12 contacts per page
+
+    for vacancy in vacancy_list:
+        setattr(vacancy, 'no_of_applicants', Vacancy_applicants.objects.filter(vacancy_id=vacancy.id).count())
+
+    for vacancy in vacancy_list:
+        setattr(vacancy, 'match', randrange(100))
+
+    vac_list = list(vacancy_list)
+    vac_list.sort(key=operator.attrgetter("match"), reverse=True)
+
+    args['list'] = vac_list
+
+    paginator = Paginator(vac_list, 12) # Show 12 contacts per page
     page = request.GET.get('page')
     try:
         vacancies = paginator.page(page)
@@ -45,7 +57,6 @@ def view_applicants(request, vacancy_id):
     applicants_list = Vacancy_applicants.objects.filter(vacancy_id=vacancy_id)
     for applicant in applicants_list:
         setattr(applicant, 'match', randrange(100))
-
     ap_list = list(applicants_list)
     ap_list.sort(key=operator.attrgetter("match"), reverse=True)
     args['list'] = ap_list
