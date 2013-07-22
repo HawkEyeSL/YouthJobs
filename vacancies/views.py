@@ -59,6 +59,8 @@ def vacancies_list(request):
   logged_user_id = request.session.get('logged_user', False)
   companyObj = Companies.objects.get(auth_id_id=logged_user_id)
   vacancy_list = Vacancy.objects.filter(company_id=companyObj.id)
+  for vacancy in vacancy_list:
+    setattr(vacancy, 'no_of_applicants', Vacancy_applicants.objects.filter(vacancy_id=vacancy.id).count())
   paginator = Paginator(vacancy_list, 12) # Show 12 contacts per page
   page = request.GET.get('page')
   try:

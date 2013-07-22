@@ -24,7 +24,7 @@
                 <td style="width:10%;"><img style="border-radius:5px;" src="/static/{{applicant.applicant_id.thumbnail }}" width="40" /></td>
                 <td><a href="/companies/vacancies/applicants/{{ applicant.applicant_id.id }}/">{{ applicant.applicant_id.full_name }}</a></td>
                 <td>{{ applicant.applicant_id.address }}</td>
-                <td style="width:10%;">67%</td>
+                <td style="width:10%;">{{ applicant.match }}%</td>
             </tr>
         {% endfor %}
         </table>

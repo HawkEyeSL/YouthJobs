@@ -3,6 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from youthjob.models import Companies, Applicants
 from django.template import RequestContext
 from vacancies.models import Vacancy, Vacancy_applicants
+from random import randrange
+import operator
 
 
 def list_all(request):
@@ -41,8 +43,13 @@ def view_companies(request, company_id):
 def view_applicants(request, vacancy_id):
     args = {}
     applicants_list = Vacancy_applicants.objects.filter(vacancy_id=vacancy_id)
-    args['list'] = applicants_list
-    paginator = Paginator(applicants_list, 12) # Show 12 contacts per page
+    for applicant in applicants_list:
+        setattr(applicant, 'match', randrange(100))
+
+    ap_list = list(applicants_list)
+    ap_list.sort(key=operator.attrgetter("match"), reverse=True)
+    args['list'] = ap_list
+    paginator = Paginator(ap_list, 12) # Show 12 contacts per page
     page = request.GET.get('page')
     try:
         vacancies = paginator.page(page)
