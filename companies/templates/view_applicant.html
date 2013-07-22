@@ -1,0 +1,17 @@
+{% extends "base_company.html" %}
+
+{% block content %}
+
+<script type="text/javascript">    
+    $(document).ready(function() {
+        $('.nav-list li').removeClass('active');
+    });
+</script>
+
+<div class="span9">
+    <div class="hero-unit">
+        <h3>{{ applicant_details.full_name }}</h3>
+    </div>
+</div>
+
+{% endblock %}

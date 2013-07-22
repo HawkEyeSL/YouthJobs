@@ -42,9 +42,9 @@ class Applicants(models.Model):
     created = models.DateTimeField('date published')
 
     def __unicode__(self):
-        return u'%s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.auth_id, self.full_name, 
-            self.birth_year, self.birth_month, self.birth_day, self.address, 
-            self.phone, self.gender, self.completed, self.updated, self.created)
+        return u'%s %s %s %s %s %s %s %s %s %s %s %s %s %s %s' % (self.id, self.auth_id, self.title, self.full_name, 
+            self.thumbnail, self.birth_year, self.birth_month, self.birth_day, self.address, 
+            self.phone, self.gender, self.district, self.completed, self.updated, self.created)
 
 
 class Companies(models.Model):

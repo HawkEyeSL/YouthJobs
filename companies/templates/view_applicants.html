@@ -2,27 +2,35 @@
 
 {% block content %}
 
+<script type="text/javascript">    
+    $(document).ready(function() {
+        $('.nav-list li').removeClass('active');
+        $('#viewcom').addClass('active');
+    });
+</script>
+
 <div class="span9">
-  <div class="hero-unit">
-    <h3>Posted Job Vacancies</h3>
-    <table class="table table-condensed">
-        <tr>
-            <th>Title</td>
-            <th>Description</td>
-            <th>Applicants</td>
-        </tr>
-    {% for vacancy in list %}
-        <tr>
-            <td><a href="/companies/vacancies/{{ vacancy.id }}/">{{ vacancy.name }}</a></a></td>
-            <td>{{ vacancy.description }}</td>
-            <td>{{ vacancy.id }}</td>
-        </tr>
-    {% endfor %}
-    </table>
+    <div class="hero-unit">
+        <h3>Applicants List</h3>
+        <table class="table table-condensed">
+            <tr>
+                <th></th>
+                <th>Applicant</th>
+                <th>Description</th>
+                <th style="width:10%;">Match Precentage</th>
+            </tr>
+        {% for applicant in list %}
+            <tr>
+                <td style="width:10%;"><img style="border-radius:5px;" src="/static/{{applicant.applicant_id.thumbnail }}" width="40" /></td>
+                <td><a href="/companies/vacancies/applicants/{{ applicant.applicant_id.id }}/">{{ applicant.applicant_id.full_name }}</a></td>
+                <td>{{ applicant.applicant_id.address }}</td>
+                <td style="width:10%;">67%</td>
+            </tr>
+        {% endfor %}
+        </table>
 
-
-    {% if 1 < list.paginator.num_pages %}
-    <div class="row-fluid">
+        {% if 1 < list.paginator.num_pages %}
+        <div class="row-fluid">
         <div class="pagination pagination-right">
             <ul>
                 {% if list.has_previous %}
@@ -45,10 +53,10 @@
                 {% endif %}
             </ul>
         </div>
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-  </div>
-  <div class="pagination">
+    <div class="pagination">
       <ul>
         <li><a href="#">Prev</a></li>
         <li><a href="#">1</a></li>
@@ -58,7 +66,7 @@
         <li><a href="#">5</a></li>
         <li><a href="#">Next</a></li>
       </ul>
-  </div>
+    </div>
 </div>
 
 {% endblock %}

@@ -1,8 +1,8 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from youthjob.models import Companies
+from youthjob.models import Companies, Applicants
 from django.template import RequestContext
-from vacancies.models import Vacancy
+from vacancies.models import Vacancy, Vacancy_applicants
 
 
 def list_all(request):
@@ -21,11 +21,11 @@ def list_all(request):
     
     return render_to_response('list.html',{'list':companies}, context_instance=RequestContext(request))
 
-def view_companies(request, company_id):
+def view_applicants(request, vacancy_id):
     args = {}
-    args['name'] = Companies.objects.get(id=company_id).name
-    vacancy_list = Vacancy.objects.filter(company_id=company_id)
-    paginator = Paginator(vacancy_list, 12) # Show 12 contacts per page
+    applicants_list = Vacancy_applicants.objects.filter(vacancy_id=vacancy_id)
+    args['list'] = applicants_list
+    paginator = Paginator(applicants_list, 12) # Show 12 contacts per page
     page = request.GET.get('page')
     try:
         vacancies = paginator.page(page)
@@ -35,5 +35,10 @@ def view_companies(request, company_id):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         vacancies = paginator.page(paginator.num_pages)
-    args['list'] = vacancies
-    return render_to_response('view_vacancies.html', args, context_instance=RequestContext(request))
+    return render_to_response('view_applicants.html', args, context_instance=RequestContext(request))
+
+def view_applicant_details(request, applicant_id):
+  args = {}
+  applicantObj = Applicants.objects.get(id=applicant_id)
+  args['applicant_details'] = applicantObj
+  return render_to_response('view_applicant.html', args, context_instance=RequestContext(request))
