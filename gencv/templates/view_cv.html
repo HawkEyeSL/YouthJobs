@@ -1,6 +1,15 @@
 {% extends "base_cv.html" %}
 
 {% block content %}
+
+{% load staticfiles %}
+<script src="{% static 'js/jsPDF.js' %}"></script>   
+<script src="{% static 'js/from-html.js' %}"></script>
+<script src="{% static 'js/font-matrix.js' %}"></script>
+<script src="{% static 'js/split-text-to-size.js' %}"></script>
+<script src="{% static 'js/add-images.js' %}"></script>
+<script src="{% static 'js/file-saver.js' %}"></script>
+
 	<style type="text/css">
 		.span9{
 			background-color: white;
@@ -32,6 +41,22 @@
 	</style>
 	<script type="text/javascript">  
     	$(document).ready(function() {  
+
+	        var doc = new jsPDF();
+	        var specialElementHandlers = {
+	            '#editor': function (element, renderer) {
+	                return true;
+	            }
+	        };
+
+	        $('#cmd').click(function () {
+	            doc.fromHTML($('.span9').html(), 15, 15, {
+	                'width': 170,
+	                    'elementHandlers': specialElementHandlers
+	            });
+	            doc.save('sample-file.pdf');
+	        });
+
     		// creating education table
     		var edu_element = "";
     		var edu_str = "{{ cv.education }}";
@@ -162,4 +187,7 @@
             <div class="hero-unit" id="rec_details">
             </div>
 </div>
+
+<div id="editor"></div>
+<button id="cmd" style="float:left;margin-top:20px;" class="btn btn-primary">generate PDF</button>
 {% endblock %}

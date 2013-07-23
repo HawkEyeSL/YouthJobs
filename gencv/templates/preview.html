@@ -2,14 +2,6 @@
 
 {% block content %}
 
-{% load staticfiles %}
-<script src="{% static 'js/jsPDF.js' %}"></script>   
-<script src="{% static 'js/from-html.js' %}"></script>
-<script src="{% static 'js/font-matrix.js' %}"></script>
-<script src="{% static 'js/split-text-to-size.js' %}"></script>
-<script src="{% static 'js/add-images.js' %}"></script>
-<script src="{% static 'js/file-saver.js' %}"></script>
-
 <style type="text/css">
     #eduModal{
         width: auto !important;
@@ -54,22 +46,6 @@
 
 <script type="text/javascript"> 
     $(document).ready(function() {
-
-        var doc = new jsPDF();
-        var specialElementHandlers = {
-            '#editor': function (element, renderer) {
-                return true;
-            }
-        };
-
-        $('#cmd').click(function () {
-            alert('clicked');
-            doc.fromHTML($('.span9').html(), 15, 15, {
-                'width': 170,
-                    'elementHandlers': specialElementHandlers
-            });
-            doc.save('sample-file.pdf');
-        });
 
         $('.nav-list li').removeClass('active');
         $('#resumes').addClass('active');
@@ -517,6 +493,4 @@
             </h3>
 </div>
         <button style="float:right;margin-top:20px;" id="view_cv" class="btn btn-primary">Show My CV</button>
-<div id="editor"></div>
-<button id="cmd">generate PDF</button>
     {% endblock %}
