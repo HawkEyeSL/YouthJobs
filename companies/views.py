@@ -5,6 +5,9 @@ from django.template import RequestContext
 from vacancies.models import Vacancy, Vacancy_applicants
 from random import randrange
 import operator
+from gencv.models import Applicant_cv
+import datetime
+from django.contrib.auth.models import User
 
 
 def list_all(request):
@@ -75,5 +78,8 @@ def view_applicants(request, vacancy_id):
 def view_applicant_details(request, applicant_id):
   args = {}
   applicantObj = Applicants.objects.get(id=applicant_id)
-  args['applicant_details'] = applicantObj
+  args['applicant'] = applicantObj
+  args['cv'] = Applicant_cv.objects.get(applicant_id_id=applicantObj.id)
+  args['dateOfBirth'] = datetime.date(applicantObj.birth_year, applicantObj.birth_month, applicantObj.birth_day)
+  args['email'] = User.objects.get(id = request.session.get('logged_user', False)).email
   return render_to_response('view_applicant.html', args, context_instance=RequestContext(request))

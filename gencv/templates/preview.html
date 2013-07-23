@@ -34,6 +34,22 @@
         padding: 20px;
         background-color: white;
     }
+
+    .profile_image{
+        float:right;        
+    }
+
+    .profile_image img{
+        float:right;
+        width:170px;
+        margin-bottom:62px;
+        margin-top:48px;       
+    }
+
+    .basic_content{
+        float:left; 
+        width:80%;
+    }
 </style>
 
 <script type="text/javascript"> 
@@ -68,7 +84,7 @@
                $(this).css('opacity','0.4');  
            },
            mouseout: function(){       
-               $(this).css('opacity','1'); 
+               $(this).removeAttr('style'); 
            }
         });
 
@@ -141,22 +157,68 @@
             $('#expModal').hide();
             $('.modal-backdrop').hide();
         });
+
+        $("#view_cv").click(function(){
+            var edu_string = "";
+            $("#edu_details tbody").find("tr").each(function(){
+                var td = "";
+                $(this).find("td").each(function(){
+                    td += $(this).text() + "~";
+                });
+                td += "`";
+                edu_string += td;       
+            });
+
+            var pro_string = "";
+            $("#project_details tbody").find("tr").each(function(){
+                var td = "";
+                $(this).find("td").each(function(){
+                    td += $(this).text() + "~";
+                });
+                td += "`";
+                pro_string += td;       
+            });
+
+            var exp_string = "";
+            $("#exp_details tbody").find("tr").each(function(){
+                var td = "";
+                $(this).find("td").each(function(){
+                    td += $(this).text() + "~";
+                });
+                td += "`";
+                exp_string += td;       
+            });
+
+            var dataString = '&profile=' + $("#profile_details").text() + 
+                                '&education=' + edu_string + 
+                                '&experience=' + exp_string + 
+                                '&projects=' + pro_string ;
+            $.ajax({
+                type:"GET",
+                url:"/gencv/save_my_cv/",
+                data: dataString,
+                success: function(data) {    
+                    //alert(data['success']);
+                    window.location = "/gencv/view_cv/";
+                }   
+            }); 
+            return false; 
+        });
         
     });
 </script>
 
 <div class="span9">
-    <div class="span-22 prepend-top">
         <div class="span-21 box">
             <h2 align="center">Curriculum Vitae</h2>
         </div>
 
-          <div style="width:100%">
-            <div style="float:right;">
-                <img src="/static/{{ thumbnail }}" style="float:right;width:160px;margin-bottom:62px;margin-top:48px;" class="img-polaroid">
+        <div style="width:100%">
+            <div class="profile_image">
+                <img src="/static/{{ thumbnail }}" class="img-polaroid">
             </div>
             <h2>{{ name }}</h2>
-            <div style="float:left; width:80%;">
+            <div class="basic_content">
                 <table id="basic" class="table table-condensed">
                     <tbody>
                         <tr>
@@ -187,10 +249,9 @@
                 </table>
             </div>
         </div>
-<br /><br />
             <h3>
                 Profile
-                <a data-toggle="modal" style="color:#0088CC;" href="#profileModal">
+                <a data-toggle="modal" href="#profileModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
@@ -215,7 +276,7 @@
 
             <h3>
                 Education
-                <a data-toggle="modal" style="color:#0088CC;" href="#eduModal">
+                <a data-toggle="modal"  href="#eduModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
@@ -262,12 +323,12 @@
 </div>
 
             <h3>Notable Projects
-                <a data-toggle="modal" style="color:#0088CC;" href="#projectModal">
+                <a data-toggle="modal"  href="#projectModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>                       
-            <div class="hero-unit">
-                <p id="project_details">Add project details here...</p>
+            <div class="hero-unit" id="project_details">
+                <p>Add project details here...</p>
             </div>
 
 <!-- projectModal -->
@@ -308,7 +369,7 @@
             including Django and a number of smaller projects. I have released a number of
             my own open projects, many of these are visible of my GitHub account. I try to
             make an open source contribution each day, my progress can be tracked at
-            www.calendaraboutnothing.com/~d0ugal</td>
+            www.calendaraboutnothing.com</td>
                     </tr>
                 </tbody>
             </table>
@@ -319,28 +380,14 @@
         </div>  
 </div>            
 
-            <h3>Key Skills
-                <a data-toggle="modal" style="color:#0088CC;" href="#skillModal">
-                    <img src="/static/images/button-add.png" width="50" />
-                </a>
-            </h3>
-
-            <div class="row-fluid">
-                <div class="row-fluid">
-                {% for skill in skills %}
-                   <div id="skills">{{skill.name}}</div>
-                {% endfor %}
-               </div>
-            </div> 
-
             <h3>
                 Experience
-                <a data-toggle="modal" style="color:#0088CC;" href="#expModal">
+                <a data-toggle="modal"  href="#expModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>           
-            <div class="hero-unit">
-                <p id="exp_details">Add your experiences here...</p>
+            <div class="hero-unit" id="exp_details">
+                <p>Add your experiences here...</p>
             </div>
 
 <!-- expModal -->
@@ -443,19 +490,33 @@
         </div>  
 </div>
 
+            <h3>Key Skills
+                <a data-toggle="modal"  href="#skillModal">
+                    <img src="/static/images/button-add.png" width="50" />
+                </a>
+            </h3>
+
+            <div class="row-fluid">
+                <div class="row-fluid">
+                {% for skill in skills %}
+                   <div id="skills">{{skill.name}}</div>
+                {% endfor %}
+               </div>
+            </div> 
+
             <h3>Extra Curriculum Activities
-                <a data-toggle="modal" style="color:#0088CC;" href="#extModal">
+                <a data-toggle="modal"  href="#extModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
             
             <h3>References and Recommendations
-                <a data-toggle="modal" style="color:#0088CC;" href="#refModal">
+                <a data-toggle="modal"  href="#refModal">
                     <img src="/static/images/button-add.png" width="50" />
                 </a>
             </h3>
-    </div>
 </div>
+        <button style="float:right;margin-top:20px;" id="view_cv" class="btn btn-primary">Show My CV</button>
 <div id="editor"></div>
 <button id="cmd">generate PDF</button>
     {% endblock %}
